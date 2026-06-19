@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | D'Vaaw Fragrances</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Montserrat:wght@300;400;500;600&display=swap');
+        @font-face { font-family: 'Willsyard'; src: url('fonts/Willsyard.woff2') format('woff2'), url('fonts/Willsyard.ttf') format('truetype'); font-weight: normal; font-style: normal; font-display: swap; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
+        body { background-color: #fff; color: #111; display: flex; flex-direction: column; min-height: 100vh; }
+        a { text-decoration: none; color: inherit; }
+        nav { background-color: #000; color: #fff; display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; width: 100%; z-index: 10; position: relative; backdrop-filter: blur(10px); transition: padding 0.3s ease; }
+        nav.scrolled { padding: 12px 5% !important; }
+        .nav-links, .nav-icons { display: flex; gap: 25px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; }
+        .nav-links a:hover, .nav-icons a:hover { color: #d4af37; }
+        .logo { font-family: 'Willsyard','Playfair Display',serif; font-size: 2.2rem; font-weight: 400; font-style: normal; letter-spacing: 4px; text-align: center; color: #d4af37; text-transform: none; }
+        @keyframes shimmer { 0%,100%{opacity:1;text-shadow:0 0 0px #d4af37;}50%{opacity:0.88;text-shadow:0 0 22px rgba(212,175,55,0.6);} }
+        .logo { animation: shimmer 4s ease-in-out infinite; }
+        .cart-icon-wrap { position: relative; display: inline-flex; align-items: center; }
+        .cart-badge { position: absolute; top: -8px; right: -12px; background: #d4af37; color: #000; border-radius: 50%; width: 17px; height: 17px; font-size: 0.6rem; font-weight: 700; display: none; align-items: center; justify-content: center; }
+        .cart-badge.show { display: flex; }
+        .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; z-index: 100; }
+        .hamburger span { display: block; width: 24px; height: 2px; background: #fff; transition: all 0.3s ease; border-radius: 2px; }
+        .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+        .hamburger.open span:nth-child(2){opacity:0;}
+        .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+        .mobile-menu { display:none; position:fixed; top:0; left:0; width:100%; height:100vh; background:rgba(5,5,5,0.98); z-index:99; flex-direction:column; align-items:center; justify-content:center; gap:30px; }
+        .mobile-menu.open { display:flex; animation:menuSlideIn 0.4s cubic-bezier(0.16,1,0.3,1) both; }
+        @keyframes menuSlideIn{from{opacity:0;transform:translateY(-20px);}to{opacity:1;transform:translateY(0);}}
+        @keyframes pageFadeIn{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+        body { animation: pageFadeIn 0.7s ease both; }
+        .mobile-menu-logo { font-family:'Willsyard','Playfair Display',serif; font-size:2.4rem; color:#d4af37; margin-bottom:10px; letter-spacing:4px; }
+        .mobile-menu-divider { width:40px; height:1px; background:#d4af37; opacity:0.4; margin-bottom:10px; }
+        .mobile-menu a { color:#fff; font-size:1rem; text-transform:uppercase; letter-spacing:4px; font-weight:300; transition:all 0.3s ease; padding:6px 0; }
+        .mobile-menu a:hover { color:#d4af37; }
+        .mobile-menu-close { position:absolute; top:28px; right:6%; background:none; border:1px solid rgba(212,175,55,0.4); color:#d4af37; width:44px; height:44px; border-radius:50%; cursor:pointer; font-size:1.3rem; display:flex; align-items:center; justify-content:center; transition:all 0.3s ease; }
+        .mobile-menu-close:hover { background:#d4af37; color:#000; transform:rotate(90deg); }
+        .reveal { opacity:0; transform:translateY(40px); transition:opacity 0.7s ease,transform 0.7s ease; }
+        .reveal.visible { opacity:1; transform:translateY(0); }
+        html { scroll-behavior: smooth; }
+
+        .page-header { background:#050505; color:#fff; padding:100px 10% 70px; text-align:center; }
+        .page-header .tag { color:#d4af37; font-size:0.75rem; letter-spacing:4px; text-transform:uppercase; margin-bottom:16px; display:block; }
+        .page-header h1 { font-size:3rem; font-weight:300; text-transform:uppercase; letter-spacing:4px; }
+
+        .contact-container { display:flex; gap:60px; padding:80px 10%; flex:1; }
+        .contact-left { flex:1; }
+        .contact-left h2 { font-size:1.5rem; font-weight:300; text-transform:uppercase; letter-spacing:3px; margin-bottom:12px; }
+        .contact-left p { font-size:0.9rem; color:#666; line-height:1.8; margin-bottom:40px; }
+
+        .contact-method { display:flex; gap:20px; align-items:flex-start; margin-bottom:30px; padding:24px; border:1px solid #eee; transition:border-color 0.3s ease, box-shadow 0.3s ease; }
+        .contact-method:hover { border-color:#d4af37; box-shadow:0 8px 30px rgba(0,0,0,0.06); }
+        .contact-method-icon { font-size:1.5rem; flex-shrink:0; margin-top:2px; }
+        .contact-method-info h3 { font-size:0.85rem; text-transform:uppercase; letter-spacing:2px; font-weight:600; margin-bottom:6px; }
+        .contact-method-info p { font-size:0.85rem; color:#666; line-height:1.6; margin:0; }
+        .contact-method-info a { color:#d4af37; font-weight:500; font-size:0.85rem; }
+        .contact-method-info a:hover { text-decoration:underline; }
+
+        .whatsapp-btn { display:inline-flex; align-items:center; gap:10px; background:#25D366; color:#fff; padding:16px 28px; text-transform:uppercase; font-size:0.85rem; letter-spacing:2px; font-weight:600; font-family:'Montserrat',sans-serif; border:none; cursor:pointer; transition:background 0.3s ease; margin-top:10px; }
+        .whatsapp-btn:hover { background:#128C7E; }
+        .whatsapp-btn svg { width:20px; height:20px; fill:none; stroke:currentColor; stroke-width:2; }
+
+        .contact-right { flex:1; background:#f9f9f9; padding:40px; }
+        .contact-right h2 { font-size:1.2rem; text-transform:uppercase; letter-spacing:3px; margin-bottom:8px; font-weight:600; }
+        .contact-right p { font-size:0.85rem; color:#666; margin-bottom:30px; }
+        .form-group { margin-bottom:20px; }
+        .form-group label { display:block; font-size:0.75rem; text-transform:uppercase; letter-spacing:1px; color:#666; margin-bottom:8px; }
+        .form-group input, .form-group textarea, .form-group select { width:100%; padding:12px 14px; border:1px solid #ddd; background:#fff; font-family:'Montserrat',sans-serif; font-size:0.9rem; color:#111; outline:none; transition:border-color 0.3s ease; resize:none; }
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color:#d4af37; }
+        .form-group textarea { height:120px; }
+        .submit-btn { width:100%; background:#111; color:#fff; padding:14px; text-transform:uppercase; font-size:0.85rem; letter-spacing:2px; font-weight:600; font-family:'Montserrat',sans-serif; border:1px solid #111; cursor:pointer; transition:all 0.3s ease; }
+        .submit-btn:hover { background:transparent; color:#111; }
+
+        .hours-banner { background:#050505; color:#fff; padding:50px 10%; display:flex; justify-content:space-around; flex-wrap:wrap; gap:30px; }
+        .hours-item { text-align:center; }
+        .hours-item .label { font-size:0.7rem; text-transform:uppercase; letter-spacing:3px; color:#d4af37; margin-bottom:8px; }
+        .hours-item .value { font-size:1rem; font-weight:300; color:#fff; }
+
+        footer { background-color: #000; color: #fff; padding: 60px 10% 20px; margin-top: auto; }
+        .footer-columns { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-bottom: 60px; }
+        .footer-col h4 { text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem; margin-bottom: 20px; color: #d4af37; }
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 12px; }
+        .footer-col ul li a { font-size: 0.8rem; color: #aaa; transition: color 0.3s ease; }
+        .footer-col ul li a:hover { color: #fff; }
+        .footer-bottom { border-top: 1px solid #222; padding-top: 20px; font-size: 0.7rem; color: #666; display: flex; justify-content: space-between; align-items: center; }
+        .footer-socials a { margin-left: 15px; color: #aaa; }
+        .footer-socials a:hover { color: #fff; }
+
+        @media (max-width:1024px) { .footer-columns{grid-template-columns:repeat(2,1fr);} }
+        @media (max-width:768px) {
+            .nav-links,.nav-icons{display:none !important;} .hamburger{display:flex !important;}
+            .page-header h1{font-size:2rem;} .page-header{padding:80px 6% 50px;}
+            .contact-container{flex-direction:column;padding:50px 6%;gap:40px;}
+            .hours-banner{padding:40px 6%;}
+            .footer-columns{grid-template-columns:1fr;} .footer-bottom{flex-direction:column;gap:10px;text-align:center;}
+            .footer-socials a{margin:0 8px;}
+        }
+    </style>
+        <link rel="stylesheet" href="dvaaw-components.css">
+</head>
+<body>
+
+    
+    <div class="mobile-menu-divider"></div>
+        <a href="category-her.html">For Her</a>
+        <a href="category-him.html">For Him</a>
+        <a href="category-unisex.html">Unisex</a>
+        <a href="category-borneo.html">Borneo Edition</a>
+        <a href="about.html">About Us</a>
+        <a href="cart.html">Cart</a>
+    </div>
+
+    <header class="page-header">
+        <span class="tag">We'd Love To Hear From You</span>
+        <h1>Contact Us</h1>
+    </header>
+
+    <section class="contact-container">
+        <div class="contact-left reveal">
+            <h2>Get In Touch</h2>
+            <p>Have a question about a fragrance, your order, or anything else? We're here to help. Reach out on WhatsApp for the fastest response.</p>
+
+            <div class="contact-method">
+                <div class="contact-method-icon">💬</div>
+                <div class="contact-method-info">
+                    <h3>WhatsApp</h3>
+                    <p>Fastest response — we reply within 1–2 hours during operating hours.</p>
+                    <a href="https://wa.me/601118866239" target="_blank">+601118866239</a>
+                </div>
+            </div>
+
+            <div class="contact-method">
+                <div class="contact-method-icon">📧</div>
+                <div class="contact-method-info">
+                    <h3>Email</h3>
+                    <p>For detailed enquiries, bulk orders, or business collaborations.</p>
+                    <a href="mailto:hello@dvaaw.com">hello@dvaaw.com</a>
+                </div>
+            </div>
+
+            <div class="contact-method">
+                <div class="contact-method-icon">📍</div>
+                <div class="contact-method-info">
+                    <h3>Based In</h3>
+                    <p>Kota Samarahan, Sarawak, Malaysia.<br>Proudly rooted in Borneo.</p>
+                </div>
+            </div>
+
+            <a href="https://wa.me/601118866239?text=Hi%20D'Vaaw!%20I%20have%20a%20question." target="_blank" class="whatsapp-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                Chat With Us on WhatsApp
+            </a>
+        </div>
+
+        <div class="contact-right reveal">
+            <h2>Send Us A Message</h2>
+            <p>We'll get back to you within 24 hours.</p>
+            <div class="form-group">
+                <label>Your Name</label>
+                <input type="text" placeholder="e.g. Siti Aminah">
+            </div>
+            <div class="form-group">
+                <label>WhatsApp / Phone Number</label>
+                <input type="tel" placeholder="e.g. 011-1234 5678">
+            </div>
+            <div class="form-group">
+                <label>Subject</label>
+                <select>
+                    <option>Order Enquiry</option>
+                    <option>Product Question</option>
+                    <option>Bulk / Wholesale Order</option>
+                    <option>Collaboration / Partnership</option>
+                    <option>Other</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Your Message</label>
+                <textarea placeholder="Tell us how we can help..."></textarea>
+            </div>
+            <button class="submit-btn" onclick="sendContactViaWhatsApp()">Send Via WhatsApp →</button>
+        </div>
+    </section>
+
+    <div class="hours-banner">
+        <div class="hours-item reveal">
+            <div class="label">Operating Hours</div>
+            <div class="value">Mon – Sat: 9am – 9pm</div>
+        </div>
+        <div class="hours-item reveal">
+            <div class="label">Sunday & PH</div>
+            <div class="value">10am – 6pm</div>
+        </div>
+        <div class="hours-item reveal">
+            <div class="label">WhatsApp Response</div>
+            <div class="value">Within 1–2 Hours</div>
+        </div>
+        <div class="hours-item reveal">
+            <div class="label">Location</div>
+            <div class="value">Kota Samarahan, Sarawak</div>
+        </div>
+    </div>
+
+    
+
+    <script>
+        
+        });
+        
+        
+
+        function sendContactViaWhatsApp(){
+            const name=document.querySelector('input[placeholder*="Siti"]').value||'Customer';
+            const phone=document.querySelector('input[type="tel"]').value||'Not provided';
+            const subject=document.querySelector('select').value;
+            const msg=document.querySelector('textarea').value||'No message provided.';
+            const text=`*CONTACT FORM — D'VAAW*\n\nName: ${name}\nPhone: ${phone}\nSubject: ${subject}\n\nMessage:\n${msg}`;
+            window.location.href=`https://wa.me/601118866239?text=${encodeURIComponent(text)}`;
+        }
+    </script>
+        <script src="dvaaw-components.js"></script>
+</body>
+</html>

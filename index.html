@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D'Vaaw | Gula Apong Scents</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Montserrat:wght@300;400;500;600&display=swap');
+        @font-face { font-family: 'Willsyard'; src: url('fonts/Willsyard.woff2') format('woff2'), url('fonts/Willsyard.ttf') format('truetype'); font-weight: normal; font-style: normal; font-display: swap; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
+        body { background-color: #fff; color: #111; }
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; display: block; }
+
+        .btn { display: inline-block; padding: 12px 24px; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 2px; font-weight: 500; font-style: normal; font-family: 'Montserrat', sans-serif; border: 1px solid #fff; color: #fff; transition: all 0.3s ease; cursor: pointer; text-align: center; }
+        .btn:hover { background-color: #fff; color: #000; }
+        .btn-dark { border: 1px solid #111; color: #111; font-style: normal; font-family: 'Montserrat', sans-serif; }
+        .btn-dark:hover { background-color: #111; color: #fff; }
+
+        nav { background-color: rgba(0,0,0,0.9); color: #fff; display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; position: absolute; width: 100%; z-index: 10; }
+        .nav-links, .nav-icons { display: flex; gap: 25px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; }
+        .nav-links a:hover, .nav-icons a:hover { color: #d4af37; }
+        .logo { font-family: 'Willsyard', 'Playfair Display', serif; font-size: 2.2rem; font-weight: 400; font-style: normal; letter-spacing: 4px; text-align: center; color: #d4af37; text-transform: none; }
+
+        .hero { background-color: #000; color: #fff; display: flex; align-items: center; min-height: 100vh; padding: 100px 5% 0 10%; position: relative; overflow: hidden; }
+        .hero-content { flex: 1; max-width: 600px; z-index: 2; }
+        .hero-content h1 { font-size: 3.5rem; font-weight: 300; line-height: 1.2; margin-bottom: 20px; }
+        .hero-content p { font-size: 1rem; line-height: 1.6; margin-bottom: 40px; color: #ccc; text-transform: uppercase; letter-spacing: 2px; }
+        .hero-image { flex: 1; position: relative; z-index: 1; }
+        .hero-image img { width: 100%; object-fit: cover; }
+
+        .categories { display: flex; padding: 5%; gap: 20px; }
+        .category-card { flex: 1; position: relative; overflow: hidden; display: block; }
+        .category-card img { width: 100%; height: 450px; object-fit: cover; filter: brightness(0.6); transition: transform 0.5s ease; }
+        .category-card:hover img { transform: scale(1.05); filter: brightness(0.8); }
+        .category-card h3 { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%; text-align: center; color: #fff; text-transform: uppercase; letter-spacing: 4px; font-weight: 500; font-size: 1.5rem; z-index: 2; }
+
+        .feature-banner { position: relative; width: 100%; height: 500px; background-color: #111; display: flex; align-items: center; justify-content: center; text-align: center; padding: 0 10%; }
+        .feature-content { color: #fff; max-width: 800px; }
+        .feature-tag { color: #d4af37; font-size: 0.9rem; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 20px; display: inline-block; }
+        .feature-content h2 { font-size: 2.2rem; font-weight: 300; margin-bottom: 20px; line-height: 1.4; }
+        .feature-content p { font-size: 0.9rem; color: #aaa; line-height: 1.8; margin-bottom: 30px; }
+
+        .latest-collection { padding: 80px 5%; }
+        .section-header { margin-bottom: 50px; text-align: center; }
+        .section-header h2 { text-transform: uppercase; letter-spacing: 3px; font-size: 1.5rem; margin-bottom: 10px; }
+        .section-header p { font-size: 0.9rem; color: #666; }
+
+        .products-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; }
+        .product-card { background-color: #fcfcfc; border: 1px solid #eee; padding: 30px; display: flex; flex-direction: column; align-items: center; text-align: center; transition: box-shadow 0.3s ease; }
+        .product-card:hover { box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .product-card img { width: 100%; height: 250px; object-fit: contain; margin-bottom: 20px; }
+        .product-category { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; color: #888; margin-bottom: 10px; }
+        .product-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 10px; text-transform: uppercase; }
+        .product-notes { font-size: 0.8rem; color: #555; margin-bottom: 15px; font-style: italic; }
+        .product-price { font-size: 1rem; font-weight: 600; margin-bottom: 20px; color: #d4af37; }
+        .product-card .btn-dark { width: 100%; }
+
+        footer { background-color: #000; color: #fff; padding: 60px 10% 20px; }
+        .footer-columns { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-bottom: 60px; }
+        .footer-col h4 { text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem; margin-bottom: 20px; color: #d4af37; }
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 12px; }
+        .footer-col ul li a { font-size: 0.8rem; color: #aaa; transition: color 0.3s ease; }
+        .footer-col ul li a:hover { color: #fff; }
+        .newsletter input { background: transparent; border: none; border-bottom: 1px solid #333; padding: 10px 0; color: #fff; width: 70%; margin-right: 10px; outline: none; }
+        .newsletter button { background: transparent; border: none; color: #d4af37; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; font-weight: 600; }
+        .footer-bottom { text-align: center; border-top: 1px solid #222; padding-top: 20px; font-size: 0.7rem; color: #666; display: flex; justify-content: space-between; align-items: center; }
+        .footer-socials a { margin-left: 15px; color: #aaa; }
+        .footer-socials a:hover { color: #fff; }
+
+        /* ============================================
+           ANIMATIONS, RESPONSIVE & MOBILE NAV
+           ============================================ */
+        html { scroll-behavior: smooth; }
+        @keyframes pageFadeIn { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+        body { animation: pageFadeIn 0.7s ease both; }
+        .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.7s ease, transform 0.7s ease; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+        .reveal-left { opacity: 0; transform: translateX(-40px); transition: opacity 0.7s ease, transform 0.7s ease; }
+        .reveal-left.visible { opacity: 1; transform: translateX(0); }
+        .reveal-right { opacity: 0; transform: translateX(40px); transition: opacity 0.7s ease, transform 0.7s ease; }
+        .reveal-right.visible { opacity: 1; transform: translateX(0); }
+        @keyframes shimmer { 0%,100% { opacity:1; text-shadow: 0 0 0px #d4af37; } 50% { opacity:0.88; text-shadow: 0 0 22px rgba(212,175,55,0.6); } }
+        .logo { animation: shimmer 4s ease-in-out infinite; }
+        nav { backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); transition: padding 0.3s ease, background 0.3s ease; }
+        nav.scrolled { padding: 12px 5% !important; background-color: rgba(0,0,0,0.98) !important; }
+        .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; z-index: 100; }
+        .hamburger span { display: block; width: 24px; height: 2px; background: #fff; transition: all 0.3s ease; border-radius: 2px; }
+        .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .hamburger.open span:nth-child(2) { opacity: 0; }
+        .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+        .mobile-menu { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(0,0,0,0.97); z-index: 99; flex-direction: column; align-items: center; justify-content: center; gap: 35px; }
+        .mobile-menu.open { display: flex; animation: pageFadeIn 0.3s ease both; }
+        .mobile-menu a { color: #fff; font-size: 1.3rem; text-transform: uppercase; letter-spacing: 4px; font-weight: 300; transition: color 0.3s ease; }
+        .mobile-menu a:hover { color: #d4af37; }
+        .product-card { transition: box-shadow 0.4s ease, transform 0.4s ease !important; }
+        .product-card:hover { box-shadow: 0 20px 50px rgba(0,0,0,0.12) !important; transform: translateY(-6px); }
+        .product-card img { transition: transform 0.5s ease; }
+        .product-card:hover img { transform: scale(1.04); }
+        .category-card { transition: box-shadow 0.4s ease; }
+        .category-card:hover { box-shadow: 0 20px 50px rgba(212,175,55,0.18); }
+        .btn, .btn-dark { position: relative; overflow: hidden; }
+        @keyframes heroPulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.025); } }
+        .hero-image img { animation: heroPulse 8s ease-in-out infinite; }
+        @media (max-width: 1024px) {
+            .products-grid { grid-template-columns: repeat(2, 1fr) !important; }
+            .hero { padding: 100px 4% 0 5%; }
+            .hero-content h1 { font-size: 3rem; }
+            .footer-columns { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .nav-links, .nav-icons { display: none !important; }
+            .hamburger { display: flex !important; }
+            .hero { flex-direction: column; min-height: 100svh; padding: 80px 5% 40px; text-align: center; align-items: center; }
+            .hero-content { max-width: 100%; }
+            .hero-content h1 { font-size: 2.2rem; }
+            .hero-content p { font-size: 0.85rem; }
+            .hero-image { width: 85%; margin: 0 auto; }
+            .categories { flex-direction: column; padding: 4%; }
+            .category-card img { height: 220px; }
+            .feature-banner { height: auto; padding: 60px 6%; }
+            .feature-content h2 { font-size: 1.5rem; }
+            .products-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 15px; }
+            .product-card { padding: 16px; }
+            .product-card img { height: 160px; }
+            .product-title { font-size: 0.9rem; }
+            .footer-columns { grid-template-columns: 1fr; }
+            .footer-bottom { flex-direction: column; gap: 10px; text-align: center; }
+            .footer-socials a { margin: 0 8px; }
+            .section-header h2 { font-size: 1.2rem; }
+        }
+        @media (max-width: 400px) {
+            .hero-content h1 { font-size: 1.8rem; }
+            .products-grid { grid-template-columns: 1fr !important; }
+        }
+
+        .cart-icon-wrap { position: relative; display: inline-flex; align-items: center; }
+        .cart-badge { position: absolute; top: -8px; right: -12px; background: #d4af37; color: #000; border-radius: 50%; width: 17px; height: 17px; font-size: 0.6rem; font-weight: 700; display: none; align-items: center; justify-content: center; line-height: 1; }
+        .cart-badge.show { display: flex; }
+
+        /* Cookie consent banner */
+        .cookie-banner { position:fixed; bottom:0; left:0; width:100%; background:#111; color:#fff; padding:16px 5%; display:flex; align-items:center; justify-content:space-between; gap:20px; z-index:9998; transform:translateY(100%); transition:transform 0.4s ease; flex-wrap:wrap; border-top:1px solid #222; }
+        .cookie-banner.show { transform:translateY(0); }
+        .cookie-banner p { font-size:0.78rem; color:#bbb; line-height:1.6; flex:1; min-width:200px; }
+        .cookie-banner a { color:#d4af37; text-decoration:underline; }
+        .cookie-btns { display:flex; gap:10px; flex-shrink:0; }
+        .cookie-accept { background:#d4af37; color:#000; border:none; padding:9px 20px; font-size:0.72rem; text-transform:uppercase; letter-spacing:1px; font-weight:700; font-family:'Montserrat',sans-serif; cursor:pointer; transition:background 0.3s; }
+        .cookie-accept:hover { background:#c9a227; }
+        .cookie-decline { background:transparent; color:#888; border:1px solid #333; padding:9px 20px; font-size:0.72rem; text-transform:uppercase; letter-spacing:1px; font-family:'Montserrat',sans-serif; cursor:pointer; transition:all 0.3s; }
+        .cookie-decline:hover { border-color:#888; color:#fff; }
+    </style>
+        <link rel="stylesheet" href="dvaaw-components.css">
+</head>
+<body>
+
+    
+    <div class="mobile-menu-divider"></div>
+        <a href="category-her.html">For Her</a>
+        <a href="category-him.html">For Him</a>
+        <a href="category-unisex.html">Unisex</a>
+        <a href="category-borneo.html">Borneo Edition</a>
+        <a href="about.html">About Us</a>
+        <a href="cart.html">Cart</a>
+    </div>
+
+    <header class="hero">
+        <div class="hero-content reveal-left">
+            <h1>Smell LUXURY Anywhere.</h1>
+            <p>Gula Apong Scents • Authentic Borneo</p>
+            <a href="shop-all.html" class="btn">Explore All Fragrances</a>
+        </div>
+        <div class="hero-image reveal-right">
+            <img src="image/hero.png" alt="D'Vaaw Perfume">
+        </div>
+    </header>
+
+    <section class="categories">
+        <a href="category-her.html" class="category-card reveal">
+            <img src="image/her-lifestyle.png" alt="For Her">
+            <h3>For Her</h3>
+        </a>
+        <a href="category-him.html" class="category-card reveal">
+            <img src="image/him-lifestyle.png" alt="For Him">
+            <h3>For Him</h3>
+        </a>
+        <a href="category-unisex.html" class="category-card reveal">
+            <img src="image/unisex-lifestyle.png" alt="Unisex">
+            <h3>Unisex</h3>
+        </a>
+    </section>
+
+    <section class="feature-banner">
+        <div class="feature-content reveal">
+            <div class="feature-tag">Where Value Meets Authenticity</div>
+            <h2>The Soul of Borneo</h2>
+            <p>We chose "Gula Apong" (Nypa Palm Sugar)—nature's gentle, long-lasting, and authentic gift—as the soul of every bottle. Every spray is a story of resilience, uplifting single mothers and students. When you wear D'VAAW, you choose a community moving forward together.</p>
+            <a href="about.html" class="btn">Read Our Story</a>
+        </div>
+    </section>
+
+    <section class="latest-collection">
+        <div class="section-header reveal">
+            <h2>Featured Collection</h2>
+            <p>Halal Luxury Lifestyle Fragrances crafted with modern perfumery.</p>
+        </div>
+        <div class="products-grid">
+            <div class="product-card reveal">
+                <img src="image/red-gorgeous.png" alt="Red Gorgeous">
+                <div class="product-category">For Her</div>
+                <div class="product-title">Red Gorgeous</div>
+                <div class="product-notes">Top: Sweet, Fruity, Floral<br>Base: Rose, Fresh Accord</div>
+                <div class="product-price">RM18.00 – RM79.00</div>
+                <a href="category-her.html" class="btn btn-dark">View Details</a>
+            </div>
+            <div class="product-card reveal">
+                <img src="image/hottest-guy.png" alt="Hottest Guy">
+                <div class="product-category">For Him</div>
+                <div class="product-title">Hottest Guy</div>
+                <div class="product-notes">Top: Fresh Spicy, Amber, Citrus<br>Base: Herbal, Warm Spicy</div>
+                <div class="product-price">RM18.00 – RM79.00</div>
+                <a href="category-him.html" class="btn btn-dark">View Details</a>
+            </div>
+            <div class="product-card reveal">
+                <img src="image/obsession.png" alt="Obsession">
+                <div class="product-category">Unisex</div>
+                <div class="product-title">Obsession</div>
+                <div class="product-notes">Top: Amber, Saffron, Woody<br>Base: Musky, Fruity</div>
+                <div class="product-price">RM18.00 – RM79.00</div>
+                <a href="category-unisex.html" class="btn btn-dark">View Details</a>
+            </div>
+            <div class="product-card reveal">
+                <img src="image/rentap-ridge.png" alt="Rentap Ridge">
+                <div class="product-category">Borneo Special Edition</div>
+                <div class="product-title">Rentap Ridge</div>
+                <div class="product-notes">Top: Shorea Macrophylia, Balsamic<br>Base: Warm Spicy</div>
+                <div class="product-price">RM18.00 – RM79.00</div>
+                <a href="category-borneo.html" class="btn btn-dark">View Details</a>
+            </div>
+        </div>
+    </section>
+
+    
+
+    <script>
+
+        // Cart badge counter
+        
+
+        
+        });
+        
+        
+        if(mobileClose) mobileClose.addEventListener('click', closeMenu);
+    </script>
+    
+    </div>
+        <script src="dvaaw-components.js"></script>
+</body>
+</html>

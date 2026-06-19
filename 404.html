@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found | D'Vaaw Fragrances</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Montserrat:wght@300;400;500;600&display=swap');
+        @font-face { font-family: 'Willsyard'; src: url('fonts/Willsyard.woff2') format('woff2'), url('fonts/Willsyard.ttf') format('truetype'); font-weight: normal; font-style: normal; font-display: swap; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
+        body { background-color: #050505; color: #fff; display: flex; flex-direction: column; min-height: 100vh; }
+        a { text-decoration: none; color: inherit; }
+
+        nav { background-color: rgba(0,0,0,0.6); color: #fff; display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; width: 100%; z-index: 10; position: absolute; backdrop-filter: blur(10px); }
+        .nav-links, .nav-icons { display: flex; gap: 25px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; }
+        .nav-links a:hover, .nav-icons a:hover { color: #d4af37; }
+        .logo { font-family: 'Willsyard','Playfair Display',serif; font-size: 2.2rem; font-weight: 400; font-style: normal; letter-spacing: 4px; text-align: center; color: #d4af37; text-transform: none; }
+        @keyframes shimmer{0%,100%{opacity:1;text-shadow:0 0 0px #d4af37;}50%{opacity:0.88;text-shadow:0 0 22px rgba(212,175,55,0.6);}}
+        .logo{animation:shimmer 4s ease-in-out infinite;}
+        .cart-icon-wrap{position:relative;display:inline-flex;align-items:center;}
+        .cart-badge{position:absolute;top:-8px;right:-12px;background:#d4af37;color:#000;border-radius:50%;width:17px;height:17px;font-size:0.6rem;font-weight:700;display:none;align-items:center;justify-content:center;}
+        .cart-badge.show{display:flex;}
+        .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;z-index:100;}
+        .hamburger span{display:block;width:24px;height:2px;background:#fff;transition:all 0.3s ease;border-radius:2px;}
+        .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+        .hamburger.open span:nth-child(2){opacity:0;}
+        .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+        .mobile-menu{display:none;position:fixed;top:0;left:0;width:100%;height:100vh;background:rgba(5,5,5,0.98);z-index:99;flex-direction:column;align-items:center;justify-content:center;gap:30px;}
+        .mobile-menu.open{display:flex;animation:menuSlideIn 0.4s cubic-bezier(0.16,1,0.3,1) both;}
+        @keyframes menuSlideIn{from{opacity:0;transform:translateY(-20px);}to{opacity:1;transform:translateY(0);}}
+        .mobile-menu-logo{font-family:'Willsyard','Playfair Display',serif;font-size:2.4rem;color:#d4af37;margin-bottom:10px;letter-spacing:4px;}
+        .mobile-menu-divider{width:40px;height:1px;background:#d4af37;opacity:0.4;margin-bottom:10px;}
+        .mobile-menu a{color:#fff;font-size:1rem;text-transform:uppercase;letter-spacing:4px;font-weight:300;transition:all 0.3s ease;padding:6px 0;}
+        .mobile-menu a:hover{color:#d4af37;}
+        .mobile-menu-close{position:absolute;top:28px;right:6%;background:none;border:1px solid rgba(212,175,55,0.4);color:#d4af37;width:44px;height:44px;border-radius:50%;cursor:pointer;font-size:1.3rem;display:flex;align-items:center;justify-content:center;transition:all 0.3s ease;}
+        .mobile-menu-close:hover{background:#d4af37;color:#000;transform:rotate(90deg);}
+
+        /* 404 HERO */
+        .not-found-wrap {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 140px 6% 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* animated gold particles background */
+        .particles { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+        .particle { position: absolute; width: 2px; height: 2px; background: #d4af37; border-radius: 50%; opacity: 0; animation: float var(--dur) var(--delay) ease-in-out infinite; }
+        @keyframes float {
+            0%   { transform: translateY(100vh) translateX(0); opacity: 0; }
+            10%  { opacity: 0.6; }
+            90%  { opacity: 0.3; }
+            100% { transform: translateY(-20px) translateX(var(--drift)); opacity: 0; }
+        }
+
+        .error-number {
+            font-family: 'Willsyard','Playfair Display',serif;
+            font-size: clamp(6rem, 20vw, 14rem);
+            font-weight: 400;
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(212,175,55,0.35);
+            line-height: 1;
+            margin-bottom: 0;
+            position: relative;
+            letter-spacing: 8px;
+            animation: fadeUp 0.8s ease both;
+        }
+        .error-number::after {
+            content: '404';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, #d4af37 0%, #f0d060 40%, #b8902a 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 0.15;
+            filter: blur(2px);
+        }
+
+        @keyframes fadeUp { from{opacity:0;transform:translateY(30px);} to{opacity:1;transform:translateY(0);} }
+
+        .gold-line { width: 60px; height: 1px; background: linear-gradient(90deg,transparent,#d4af37,transparent); margin: 28px auto; animation: fadeUp 0.8s 0.2s ease both; opacity: 0; animation-fill-mode: forwards; }
+
+        .error-tag { color: #d4af37; font-size: 0.7rem; letter-spacing: 5px; text-transform: uppercase; margin-bottom: 16px; animation: fadeUp 0.8s 0.15s ease both; opacity: 0; animation-fill-mode: forwards; }
+
+        .error-title {
+            font-size: clamp(1.4rem, 4vw, 2.2rem);
+            font-weight: 300;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: #fff;
+            margin-bottom: 16px;
+            animation: fadeUp 0.8s 0.25s ease both;
+            opacity: 0;
+            animation-fill-mode: forwards;
+        }
+
+        .error-desc {
+            font-size: 0.9rem;
+            color: #888;
+            max-width: 460px;
+            line-height: 1.8;
+            margin: 0 auto 44px;
+            animation: fadeUp 0.8s 0.35s ease both;
+            opacity: 0;
+            animation-fill-mode: forwards;
+        }
+
+        .error-btns {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeUp 0.8s 0.45s ease both;
+            opacity: 0;
+            animation-fill-mode: forwards;
+        }
+        .btn-gold-solid {
+            display: inline-block;
+            padding: 14px 32px;
+            background: #d4af37;
+            color: #000;
+            text-transform: uppercase;
+            font-size: 0.78rem;
+            letter-spacing: 2px;
+            font-weight: 600;
+            font-family: 'Montserrat',sans-serif;
+            border: 1px solid #d4af37;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .btn-gold-solid:hover { background: transparent; color: #d4af37; }
+        .btn-outline-white {
+            display: inline-block;
+            padding: 14px 32px;
+            background: transparent;
+            color: #fff;
+            text-transform: uppercase;
+            font-size: 0.78rem;
+            letter-spacing: 2px;
+            font-weight: 500;
+            font-family: 'Montserrat',sans-serif;
+            border: 1px solid rgba(255,255,255,0.3);
+            transition: all 0.3s ease;
+        }
+        .btn-outline-white:hover { border-color: #d4af37; color: #d4af37; }
+
+        .quick-links {
+            margin-top: 60px;
+            animation: fadeUp 0.8s 0.55s ease both;
+            opacity: 0;
+            animation-fill-mode: forwards;
+        }
+        .quick-links p { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 3px; color: #555; margin-bottom: 18px; }
+        .quick-links-row { display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; }
+        .quick-links-row a { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: #666; border-bottom: 1px solid transparent; padding-bottom: 2px; transition: all 0.3s ease; }
+        .quick-links-row a:hover { color: #d4af37; border-bottom-color: #d4af37; }
+
+        footer { background-color: #000; color: #fff; padding: 50px 10% 20px; border-top: 1px solid #111; }
+        .footer-bottom { font-size: 0.7rem; color: #444; display: flex; justify-content: space-between; align-items: center; }
+        .footer-socials a { margin-left: 15px; color: #444; transition: color 0.3s; }
+        .footer-socials a:hover { color: #d4af37; }
+
+        @media (max-width: 768px) {
+            .nav-links,.nav-icons{display:none !important;}.hamburger{display:flex !important;}
+            .error-btns { flex-direction: column; align-items: center; }
+            .quick-links-row { gap: 16px; }
+            .footer-bottom{flex-direction:column;gap:10px;text-align:center;}
+            .footer-socials a{margin:0 8px;}
+        }
+    </style>
+        <link rel="stylesheet" href="dvaaw-components.css">
+</head>
+<body>
+
+    
+    <div class="mobile-menu-divider"></div>
+        <a href="category-her.html">For Her</a>
+        <a href="category-him.html">For Him</a>
+        <a href="category-unisex.html">Unisex</a>
+        <a href="category-borneo.html">Borneo Edition</a>
+        <a href="about.html">About Us</a>
+        <a href="cart.html">Cart</a>
+    </div>
+
+    <main class="not-found-wrap">
+        <!-- Floating particles -->
+        <div class="particles" id="particles"></div>
+
+        <p class="error-tag">Lost in the mist</p>
+        <div class="error-number">404</div>
+        <div class="gold-line"></div>
+        <h1 class="error-title">Page Not Found</h1>
+        <p class="error-desc">The page you're looking for has drifted away — like a fragrance on the wind. Let us guide you back to something beautiful.</p>
+
+        <div class="error-btns">
+            <a href="index.html" class="btn-gold-solid">Back to Home</a>
+            <a href="shop-all.html" class="btn-outline-white">Explore Fragrances</a>
+        </div>
+
+        <div class="quick-links">
+            <p>Or find what you need:</p>
+            <div class="quick-links-row">
+                <a href="category-her.html">For Her</a>
+                <a href="category-him.html">For Him</a>
+                <a href="category-unisex.html">Unisex</a>
+                <a href="category-borneo.html">Borneo Edition</a>
+                <a href="cart.html">My Cart</a>
+                <a href="contact.html">Contact Us</a>
+            </div>
+        </div>
+    </main>
+
+    
+
+    <script>
+        // Cart badge
+        
+
+        // Mobile menu
+        
+
+        // Generate floating gold particles
+        const container = document.getElementById('particles');
+        for (let i = 0; i < 28; i++) {
+            const p = document.createElement('div');
+            p.className = 'particle';
+            const size = Math.random() * 3 + 1;
+            p.style.cssText = `
+                left: ${Math.random() * 100}%;
+                width: ${size}px;
+                height: ${size}px;
+                --dur: ${6 + Math.random() * 10}s;
+                --delay: ${Math.random() * 8}s;
+                --drift: ${(Math.random() - 0.5) * 120}px;
+                opacity: 0;
+            `;
+            container.appendChild(p);
+        }
+    </script>
+        <script src="dvaaw-components.js"></script>
+</body>
+</html>
