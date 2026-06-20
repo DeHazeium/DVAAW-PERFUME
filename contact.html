@@ -4,41 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us | D'Vaaw Fragrances</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Montserrat:wght@300;400;500;600&display=swap');
-        @font-face { font-family: 'Willsyard'; src: url('fonts/Willsyard.woff2') format('woff2'), url('fonts/Willsyard.ttf') format('truetype'); font-weight: normal; font-style: normal; font-display: swap; }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
-        body { background-color: #fff; color: #111; display: flex; flex-direction: column; min-height: 100vh; }
-        a { text-decoration: none; color: inherit; }
-        nav { background-color: #000; color: #fff; display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; width: 100%; z-index: 10; position: relative; backdrop-filter: blur(10px); transition: padding 0.3s ease; }
-        nav.scrolled { padding: 12px 5% !important; }
-        .nav-links, .nav-icons { display: flex; gap: 25px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; }
-        .nav-links a:hover, .nav-icons a:hover { color: #d4af37; }
-        .logo { font-family: 'Willsyard','Playfair Display',serif; font-size: 2.2rem; font-weight: 400; font-style: normal; letter-spacing: 4px; text-align: center; color: #d4af37; text-transform: none; }
-        @keyframes shimmer { 0%,100%{opacity:1;text-shadow:0 0 0px #d4af37;}50%{opacity:0.88;text-shadow:0 0 22px rgba(212,175,55,0.6);} }
-        .logo { animation: shimmer 4s ease-in-out infinite; }
-        .cart-icon-wrap { position: relative; display: inline-flex; align-items: center; }
-        .cart-badge { position: absolute; top: -8px; right: -12px; background: #d4af37; color: #000; border-radius: 50%; width: 17px; height: 17px; font-size: 0.6rem; font-weight: 700; display: none; align-items: center; justify-content: center; }
-        .cart-badge.show { display: flex; }
-        .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; z-index: 100; }
-        .hamburger span { display: block; width: 24px; height: 2px; background: #fff; transition: all 0.3s ease; border-radius: 2px; }
-        .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
-        .hamburger.open span:nth-child(2){opacity:0;}
-        .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
-        .mobile-menu { display:none; position:fixed; top:0; left:0; width:100%; height:100vh; background:rgba(5,5,5,0.98); z-index:99; flex-direction:column; align-items:center; justify-content:center; gap:30px; }
-        .mobile-menu.open { display:flex; animation:menuSlideIn 0.4s cubic-bezier(0.16,1,0.3,1) both; }
-        @keyframes menuSlideIn{from{opacity:0;transform:translateY(-20px);}to{opacity:1;transform:translateY(0);}}
-        @keyframes pageFadeIn{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
-        body { animation: pageFadeIn 0.7s ease both; }
-        .mobile-menu-logo { font-family:'Willsyard','Playfair Display',serif; font-size:2.4rem; color:#d4af37; margin-bottom:10px; letter-spacing:4px; }
-        .mobile-menu-divider { width:40px; height:1px; background:#d4af37; opacity:0.4; margin-bottom:10px; }
-        .mobile-menu a { color:#fff; font-size:1rem; text-transform:uppercase; letter-spacing:4px; font-weight:300; transition:all 0.3s ease; padding:6px 0; }
-        .mobile-menu a:hover { color:#d4af37; }
-        .mobile-menu-close { position:absolute; top:28px; right:6%; background:none; border:1px solid rgba(212,175,55,0.4); color:#d4af37; width:44px; height:44px; border-radius:50%; cursor:pointer; font-size:1.3rem; display:flex; align-items:center; justify-content:center; transition:all 0.3s ease; }
-        .mobile-menu-close:hover { background:#d4af37; color:#000; transform:rotate(90deg); }
-        .reveal { opacity:0; transform:translateY(40px); transition:opacity 0.7s ease,transform 0.7s ease; }
-        .reveal.visible { opacity:1; transform:translateY(0); }
-        html { scroll-behavior: smooth; }
+        <style>
+50%{opacity:0.88;text-shadow:0 0 22px rgba(212,175,55,0.6);} }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        to{opacity:1;transform:translateY(0);}}
+        to{opacity:1;transform:translateY(0);}}
+        
+        
+        
+        
+        
+        
+        
+        
+        
 
         .page-header { background:#050505; color:#fff; padding:100px 10% 70px; text-align:center; }
         .page-header .tag { color:#d4af37; font-size:0.75rem; letter-spacing:4px; text-transform:uppercase; margin-bottom:16px; display:block; }
@@ -54,7 +43,7 @@
         .contact-method-icon { font-size:1.5rem; flex-shrink:0; margin-top:2px; }
         .contact-method-info h3 { font-size:0.85rem; text-transform:uppercase; letter-spacing:2px; font-weight:600; margin-bottom:6px; }
         .contact-method-info p { font-size:0.85rem; color:#666; line-height:1.6; margin:0; }
-        .contact-method-info a { color:#d4af37; font-weight:500; font-size:0.85rem; }
+        .contact-method-info 
         .contact-method-info a:hover { text-decoration:underline; }
 
         .whatsapp-btn { display:inline-flex; align-items:center; gap:10px; background:#25D366; color:#fff; padding:16px 28px; text-transform:uppercase; font-size:0.85rem; letter-spacing:2px; font-weight:600; font-family:'Montserrat',sans-serif; border:none; cursor:pointer; transition:background 0.3s ease; margin-top:10px; }
@@ -68,7 +57,7 @@
         .form-group label { display:block; font-size:0.75rem; text-transform:uppercase; letter-spacing:1px; color:#666; margin-bottom:8px; }
         .form-group input, .form-group textarea, .form-group select { width:100%; padding:12px 14px; border:1px solid #ddd; background:#fff; font-family:'Montserrat',sans-serif; font-size:0.9rem; color:#111; outline:none; transition:border-color 0.3s ease; resize:none; }
         .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color:#d4af37; }
-        .form-group textarea { height:120px; }
+        .form-group textare
         .submit-btn { width:100%; background:#111; color:#fff; padding:14px; text-transform:uppercase; font-size:0.85rem; letter-spacing:2px; font-weight:600; font-family:'Montserrat',sans-serif; border:1px solid #111; cursor:pointer; transition:all 0.3s ease; }
         .submit-btn:hover { background:transparent; color:#111; }
 
@@ -76,27 +65,6 @@
         .hours-item { text-align:center; }
         .hours-item .label { font-size:0.7rem; text-transform:uppercase; letter-spacing:3px; color:#d4af37; margin-bottom:8px; }
         .hours-item .value { font-size:1rem; font-weight:300; color:#fff; }
-
-        footer { background-color: #000; color: #fff; padding: 60px 10% 20px; margin-top: auto; }
-        .footer-columns { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-bottom: 60px; }
-        .footer-col h4 { text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem; margin-bottom: 20px; color: #d4af37; }
-        .footer-col ul { list-style: none; }
-        .footer-col ul li { margin-bottom: 12px; }
-        .footer-col ul li a { font-size: 0.8rem; color: #aaa; transition: color 0.3s ease; }
-        .footer-col ul li a:hover { color: #fff; }
-        .footer-bottom { border-top: 1px solid #222; padding-top: 20px; font-size: 0.7rem; color: #666; display: flex; justify-content: space-between; align-items: center; }
-        .footer-socials a { margin-left: 15px; color: #aaa; }
-        .footer-socials a:hover { color: #fff; }
-
-        @media (max-width:1024px) { .footer-columns{grid-template-columns:repeat(2,1fr);} }
-        @media (max-width:768px) {
-            .nav-links,.nav-icons{display:none !important;} .hamburger{display:flex !important;}
-            .page-header h1{font-size:2rem;} .page-header{padding:80px 6% 50px;}
-            .contact-container{flex-direction:column;padding:50px 6%;gap:40px;}
-            .hours-banner{padding:40px 6%;}
-            .footer-columns{grid-template-columns:1fr;} .footer-bottom{flex-direction:column;gap:10px;text-align:center;}
-            .footer-socials a{margin:0 8px;}
-        }
     </style>
         <link rel="stylesheet" href="dvaaw-components.css">
 </head>
