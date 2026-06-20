@@ -1,204 +1,189 @@
 /**
  * D'Vaaw Components — Single source of truth
- * Change this file → updates EVERY page instantly.
- * 
- * Usage: Add this to the <head> of every page:
- *   <link rel="stylesheet" href="dvaaw-components.css">
- * And before </body>:
- *   <script src="dvaaw-components.js"></script>
+ * Injects: Nav, Footer, Cookie Banner
+ * Handles: Cart badge, scroll shrink, mobile menu, cookie consent, scroll reveal
+ *
+ * Add to EVERY page:
+ *   <head>  →  <link rel="stylesheet" href="dvaaw-components.css">
+ *   </body> →  <script src="dvaaw-components.js"></script>
  */
-
 (function () {
 
-    /* ─────────────────────────────────────────
-       1. INJECT NAV
-    ───────────────────────────────────────── */
-    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-
-    function navLink(href, label) {
-        const active = currentPage === href ? ' style="color:#d4af37;"' : '';
+    /* ─────────────────────────────────
+       AUTO-DETECT ACTIVE PAGE
+    ───────────────────────────────── */
+    const page = window.location.pathname.split('/').pop() || 'index.html';
+    function isActive(href) { return page === href; }
+    function navA(href, label, extraStyle) {
+        const active = isActive(href) ? ' style="color:#d4af37;"' : (extraStyle ? ` style="${extraStyle}"` : '');
         return `<a href="${href}"${active}>${label}</a>`;
     }
 
-    const navHTML = `
-    <nav id="main-nav">
-        <div class="nav-links">
-            ${navLink('category-her.html',    'For Her')}
-            ${navLink('category-him.html',    'For Him')}
-            ${navLink('category-unisex.html', 'Unisex')}
-            ${navLink('category-borneo.html', 'Borneo Edition')}
-        </div>
-        <div class="logo"><a href="index.html" style="color:inherit;">D'Vaaw</a></div>
-        <div class="nav-icons">
-            ${navLink('about.html', 'About Us')}
-            <a href="cart.html" class="cart-icon-wrap">
-                Cart<span class="cart-badge" id="cart-badge"></span>
-            </a>
-        </div>
-        <div class="hamburger" id="hamburger">
-            <span></span><span></span><span></span>
-        </div>
-    </nav>
+    /* ─────────────────────────────────
+       1. INJECT NAV
+    ───────────────────────────────── */
+    const nav = document.createElement('div');
+    nav.innerHTML = `
+<nav id="main-nav">
+    <div class="nav-links">
+        ${navA('category-her.html',    'For Her')}
+        ${navA('category-him.html',    'For Him')}
+        ${navA('category-unisex.html', 'Unisex')}
+        ${navA('category-borneo.html', 'Borneo Edition')}
+    </div>
+    <div class="logo"><a href="index.html">D'VAAW</a></div>
+    <div class="nav-icons">
+        ${navA('about.html', 'About Us')}
+        <a href="cart.html" class="cart-icon-wrap">Cart<span class="cart-badge" id="cart-badge"></span></a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+    </button>
+</nav>
+<div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+    <button class="mobile-menu-close" id="mobile-close" aria-label="Close menu">&#x2715;</button>
+    <div class="mobile-menu-logo">D'VAAW</div>
+    <div class="mobile-menu-divider"></div>
+    ${navA('category-her.html',    'For Her')}
+    ${navA('category-him.html',    'For Him')}
+    ${navA('category-unisex.html', 'Unisex')}
+    ${navA('category-borneo.html', 'Borneo Edition')}
+    ${navA('about.html',           'About Us')}
+    <a href="cart.html">Cart</a>
+</div>`;
+    document.body.insertBefore(nav.firstElementChild, document.body.firstChild);
+    // insert mobile menu right after nav
+    const mainNav = document.getElementById('main-nav');
+    mainNav.after(nav.firstElementChild);
 
-    <div class="mobile-menu" id="mobile-menu">
-        <button class="mobile-menu-close" id="mobile-close" aria-label="Close menu">&#x2715;</button>
-        <div class="mobile-menu-logo">D'Vaaw</div>
-        <div class="mobile-menu-divider"></div>
-        ${navLink('category-her.html',    'For Her')}
-        ${navLink('category-him.html',    'For Him')}
-        ${navLink('category-unisex.html', 'Unisex')}
-        ${navLink('category-borneo.html', 'Borneo Edition')}
-        ${navLink('about.html',           'About Us')}
-        <a href="cart.html">Cart</a>
-    </div>`;
-
-    document.body.insertAdjacentHTML('afterbegin', navHTML);
-
-    /* ─────────────────────────────────────────
+    /* ─────────────────────────────────
        2. INJECT FOOTER
-    ───────────────────────────────────────── */
-    const footerHTML = `
-    <footer id="main-footer">
-        <div class="footer-columns">
-            <div class="footer-col">
-                <h4>Shop</h4>
-                <ul>
-                    <li><a href="shop-all.html">All Products</a></li>
-                    <li><a href="category-her.html">For Her</a></li>
-                    <li><a href="category-him.html">For Him</a></li>
-                    <li><a href="category-unisex.html">Unisex</a></li>
-                    <li><a href="category-borneo.html">Borneo Edition</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>Information</h4>
-                <ul>
-                    <li><a href="about.html">Our Story</a></li>
-                    <li><a href="contact.html">Contact Us</a></li>
-                    <li><a href="shipping.html">Shipping &amp; Returns</a></li>
-                    <li><a href="privacy.html">Privacy Policy</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>Connect</h4>
-                <ul>
-                    <li><a href="https://instagram.com" target="_blank">Instagram</a></li>
-                    <li><a href="https://facebook.com" target="_blank">Facebook</a></li>
-                    <li><a href="https://tiktok.com" target="_blank">TikTok</a></li>
-                    <li><a href="https://wa.me/601118866239" target="_blank">WhatsApp Us</a></li>
-                </ul>
-            </div>
+    ───────────────────────────────── */
+    const footer = document.createElement('footer');
+    footer.id = 'main-footer';
+    footer.innerHTML = `
+    <div class="footer-columns">
+        <div class="footer-col">
+            <h4>Shop</h4>
+            <ul>
+                <li><a href="shop-all.html">All Products</a></li>
+                <li><a href="category-her.html">For Her</a></li>
+                <li><a href="category-him.html">For Him</a></li>
+                <li><a href="category-unisex.html">Unisex</a></li>
+                <li><a href="category-borneo.html">Borneo Edition</a></li>
+            </ul>
         </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 D'Vaaw Perfume. All rights reserved.</p>
-            <div class="footer-socials">
-                <a href="https://instagram.com" target="_blank">Instagram</a>
-                <a href="https://facebook.com" target="_blank">Facebook</a>
-                <a href="https://tiktok.com" target="_blank">TikTok</a>
-            </div>
+        <div class="footer-col">
+            <h4>Information</h4>
+            <ul>
+                <li><a href="about.html">Our Story</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+                <li><a href="shipping.html">Shipping &amp; Returns</a></li>
+                <li><a href="privacy.html">Privacy Policy</a></li>
+            </ul>
         </div>
-    </footer>`;
-
-    document.body.insertAdjacentHTML('beforeend', footerHTML);
-
-    /* ─────────────────────────────────────────
-       3. INJECT COOKIE BANNER
-    ───────────────────────────────────────── */
-    const cookieHTML = `
-    <div class="cookie-banner" id="cookie-banner">
-        <p>We use localStorage to save your shopping cart. No tracking cookies. <a href="privacy.html">Privacy Policy</a></p>
-        <div class="cookie-btns">
-            <button class="cookie-accept" id="cookie-accept">Got it</button>
-            <button class="cookie-decline" id="cookie-decline">Dismiss</button>
+        <div class="footer-col">
+            <h4>Connect</h4>
+            <ul>
+                <li><a href="https://instagram.com" target="_blank">Instagram</a></li>
+                <li><a href="https://facebook.com" target="_blank">Facebook</a></li>
+                <li><a href="https://tiktok.com" target="_blank">TikTok</a></li>
+                <li><a href="https://wa.me/601118866239" target="_blank">WhatsApp Us</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2026 D'Vaaw Perfume. All rights reserved.</p>
+        <div class="footer-socials">
+            <a href="https://instagram.com" target="_blank">Instagram</a>
+            <a href="https://facebook.com" target="_blank">Facebook</a>
+            <a href="https://tiktok.com" target="_blank">TikTok</a>
         </div>
     </div>`;
+    document.body.appendChild(footer);
 
-    document.body.insertAdjacentHTML('beforeend', cookieHTML);
+    /* ─────────────────────────────────
+       3. INJECT COOKIE BANNER
+    ───────────────────────────────── */
+    const cookie = document.createElement('div');
+    cookie.className = 'cookie-banner';
+    cookie.id = 'cookie-banner';
+    cookie.innerHTML = `
+    <p>We use localStorage to save your shopping cart. No tracking cookies. <a href="privacy.html">Privacy Policy</a></p>
+    <div class="cookie-btns">
+        <button class="cookie-accept" id="cookie-accept">Got it</button>
+        <button class="cookie-decline" id="cookie-decline">Dismiss</button>
+    </div>`;
+    document.body.appendChild(cookie);
 
-    /* ─────────────────────────────────────────
-       4. CART BADGE COUNTER
-    ───────────────────────────────────────── */
+    /* ─────────────────────────────────
+       4. CART BADGE
+    ───────────────────────────────── */
     function updateCartBadge() {
-        const cart  = JSON.parse(localStorage.getItem('dvaaw_cart')) || [];
-        const total = cart.reduce((s, i) => s + i.qty, 0);
+        const cart = JSON.parse(localStorage.getItem('dvaaw_cart')) || [];
+        const total = cart.reduce((s, i) => s + (i.qty || 0), 0);
         document.querySelectorAll('.cart-badge').forEach(b => {
             b.textContent = total;
             b.classList.toggle('show', total > 0);
         });
     }
     updateCartBadge();
-
-    // Re-run when cart changes in another tab
     window.addEventListener('storage', e => { if (e.key === 'dvaaw_cart') updateCartBadge(); });
 
-    /* ─────────────────────────────────────────
+    /* ─────────────────────────────────
        5. NAV SCROLL SHRINK
-    ───────────────────────────────────────── */
+    ───────────────────────────────── */
     window.addEventListener('scroll', () => {
-        const nav = document.getElementById('main-nav');
-        if (nav) nav.classList.toggle('scrolled', window.scrollY > 60);
-    });
+        const n = document.getElementById('main-nav');
+        if (n) n.classList.toggle('scrolled', window.scrollY > 60);
+    }, { passive: true });
 
-    /* ─────────────────────────────────────────
-       6. MOBILE MENU LOGIC
-    ───────────────────────────────────────── */
+    /* ─────────────────────────────────
+       6. MOBILE MENU
+    ───────────────────────────────── */
     const hb = document.getElementById('hamburger');
     const mm = document.getElementById('mobile-menu');
     const mc = document.getElementById('mobile-close');
 
-    function closeMenu() {
-        hb.classList.remove('open');
-        mm.classList.remove('open');
-        document.body.style.overflow = '';
-    }
+    function openMenu()  { hb.classList.add('open'); mm.classList.add('open'); mm.setAttribute('aria-hidden','false'); document.body.style.overflow = 'hidden'; }
+    function closeMenu() { hb.classList.remove('open'); mm.classList.remove('open'); mm.setAttribute('aria-hidden','true'); document.body.style.overflow = ''; }
 
-    hb.addEventListener('click', () => {
-        hb.classList.toggle('open');
-        mm.classList.toggle('open');
-        document.body.style.overflow = mm.classList.contains('open') ? 'hidden' : '';
-    });
-
-    mm.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+    if (hb) hb.addEventListener('click', () => mm.classList.contains('open') ? closeMenu() : openMenu());
     if (mc) mc.addEventListener('click', closeMenu);
+    if (mm) mm.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
 
-    /* ─────────────────────────────────────────
-       7. COOKIE CONSENT LOGIC
-    ───────────────────────────────────────── */
-    function dismissCookie() {
+    /* ─────────────────────────────────
+       7. COOKIE CONSENT
+    ───────────────────────────────── */
+    function hideCookie() {
         const b = document.getElementById('cookie-banner');
         if (b) b.classList.remove('show');
     }
-
     if (!localStorage.getItem('dvaaw_cookie_consent')) {
         setTimeout(() => {
             const b = document.getElementById('cookie-banner');
             if (b) b.classList.add('show');
-        }, 1500);
+        }, 1600);
     }
-
     document.getElementById('cookie-accept')?.addEventListener('click', () => {
-        localStorage.setItem('dvaaw_cookie_consent', 'accepted');
-        dismissCookie();
+        localStorage.setItem('dvaaw_cookie_consent', 'accepted'); hideCookie();
     });
-
     document.getElementById('cookie-decline')?.addEventListener('click', () => {
-        localStorage.setItem('dvaaw_cookie_consent', 'declined');
-        dismissCookie();
+        localStorage.setItem('dvaaw_cookie_consent', 'declined'); hideCookie();
     });
 
-    /* ─────────────────────────────────────────
+    /* ─────────────────────────────────
        8. SCROLL REVEAL
-    ───────────────────────────────────────── */
-    const revealObs = new IntersectionObserver((entries) => {
+    ───────────────────────────────── */
+    const obs = new IntersectionObserver((entries) => {
         entries.forEach((e, i) => {
             if (e.isIntersecting) {
-                setTimeout(() => e.target.classList.add('visible'), i * 90);
-                revealObs.unobserve(e.target);
+                setTimeout(() => e.target.classList.add('visible'), i * 80);
+                obs.unobserve(e.target);
             }
         });
     }, { threshold: 0.1 });
-
     document.querySelectorAll('.reveal, .reveal-left, .reveal-right')
-            .forEach(el => revealObs.observe(el));
+            .forEach(el => obs.observe(el));
 
 })();
