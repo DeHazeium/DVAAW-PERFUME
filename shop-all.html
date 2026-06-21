@@ -10,9 +10,6 @@
         .btn-dark:hover { background-color: #111; color: #fff; }
         
         
-        .toast-icon { font-size: 1.2rem; color: #fff; }
-        
-        
         
         
         .page-header { background-color: #f9f9f9; padding: 80px 5%; text-align: center; border-bottom: 1px solid #eee; }
@@ -90,6 +87,51 @@
         
 
         /* Cookie consent banner */
+
+        /* Recently Viewed */
+        .recently-viewed {
+            padding: 60px 5% 70px;
+            background: #f9f9f9;
+            border-top: 1px solid #eee;
+        }
+        .recently-viewed h2 {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            color: #888;
+            text-align: center;
+        }
+        .rv-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .rv-card {
+            background: #fff;
+            border: 1px solid #eee;
+            padding: 20px 16px;
+            text-align: center;
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+            cursor: pointer;
+        }
+        .rv-card:hover { box-shadow: 0 8px 28px rgba(0,0,0,0.08); transform: translateY(-4px); }
+        .rv-card img { width: 100%; height: 110px; object-fit: contain; margin-bottom: 10px; }
+        .rv-card-title { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+        .rv-card-price { font-size: 0.7rem; color: #888; margin-bottom: 10px; }
+        .rv-card-btn {
+            font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1.5px;
+            color: #111; border-bottom: 1px solid #111; padding-bottom: 1px;
+            transition: color 0.2s ease, border-color 0.2s ease; font-weight: 500;
+        }
+        .rv-card:hover .rv-card-btn { color: #d4af37; border-color: #d4af37; }
+        @media (max-width: 768px) {
+            .rv-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+            .recently-viewed { padding: 40px 4% 50px; }
+        }
     </style>
         <link rel="stylesheet" href="dvaaw-components.css">
 </head>
@@ -147,13 +189,6 @@
         </div>
     </section>
 
-    
-
-    <div id="custom-toast" class="toast-notification">
-        <span class="toast-icon">✓</span>
-        <span>Item Added To Cart</span>
-    </div>
-
     <script>
         const filterButtons = document.querySelectorAll('.filter-btn');
         const productCards = document.querySelectorAll('.product-card');
@@ -182,8 +217,7 @@
             let existingItem = cart.find(item => item.id === newItem.id);
             if (existingItem) { existingItem.qty += 1; } else { cart.push(newItem); }
             localStorage.setItem('dvaaw_cart', JSON.stringify(cart));
-            const toast = document.getElementById('custom-toast');
-            toast.classList.add('show');
+            window.showToast('Item Added To Cart');
             setTimeout(() => { window.location.href = 'cart.html'; }, 1000);
         }
     </script>
@@ -200,5 +234,72 @@
     
     </div>
         <script src="dvaaw-components.js"></script>
+    <script>
+        /* ── RECENTLY VIEWED ── */
+        (function() {
+            const MAX = 4;
+            const KEY = 'dvaaw_recently_viewed';
+
+            // Track every product card visible on THIS page
+            document.querySelectorAll('.product-card').forEach(card => {
+                const title    = card.querySelector('.product-title')?.innerText || '';
+                const category = card.querySelector('.product-category')?.innerText || '';
+                const img      = card.querySelector('img')?.src || '';
+                const priceEl  = card.querySelector('.product-price');
+                const price    = priceEl ? priceEl.innerText : '';
+                if (!title) return;
+
+                // On card click (anywhere), save it
+                card.addEventListener('click', () => saveViewed({title, category, img, price}));
+                // Also save on Add to Cart
+                const btn = card.querySelector('button');
+                if (btn) btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    saveViewed({title, category, img, price});
+                });
+            });
+
+            function saveViewed(item) {
+                let rv = JSON.parse(localStorage.getItem(KEY)) || [];
+                rv = rv.filter(i => i.title !== item.title); // remove duplicate
+                rv.unshift(item);                             // add to front
+                rv = rv.slice(0, MAX);                        // keep max 4
+                localStorage.setItem(KEY, JSON.stringify(rv));
+            }
+
+            // Render recently viewed section
+            function renderRecentlyViewed() {
+                let rv = JSON.parse(localStorage.getItem(KEY)) || [];
+                // Filter out items currently on THIS page to avoid showing same products
+                const pageTitles = new Set(
+                    Array.from(document.querySelectorAll('.product-title')).map(el => el.innerText)
+                );
+                rv = rv.filter(i => !pageTitles.has(i.title));
+                if (!rv.length) return;
+
+                const section = document.createElement('section');
+                section.className = 'recently-viewed';
+                section.innerHTML = `
+                    <h2>Recently Viewed</h2>
+                    <div class="rv-grid">
+                        ${rv.map(i => `
+                        <div class="rv-card" onclick="window.location.href='shop-all.html'">
+                            <img src="${i.img}" alt="${i.title}">
+                            <div class="rv-card-title">${i.title}</div>
+                            <div class="rv-card-price">${i.price}</div>
+                            <span class="rv-card-btn">View Details</span>
+                        </div>`).join('')}
+                    </div>`;
+
+                // Insert before the footer
+                const footer = document.getElementById('main-footer');
+                if (footer) { document.body.insertBefore(section, footer); }
+                else { document.body.appendChild(section); }
+            }
+
+            // Render after components inject footer
+            window.addEventListener('load', renderRecentlyViewed);
+        })();
+    </script>
 </body>
 </html>
