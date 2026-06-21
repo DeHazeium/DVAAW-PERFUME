@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Sent | D'Vaaw Fragrances</title>
+    <link rel="stylesheet" href="dvaaw-components.css">
+    <style>
+        body { background: #050505; }
+
+        .confirm-wrap {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 100px 6% 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Gold ring animation */
+        .confirm-ring {
+            width: 100px; height: 100px;
+            border-radius: 50%;
+            border: 1px solid rgba(212,175,55,0.2);
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 32px;
+            position: relative;
+            animation: ringPulse 3s ease-in-out infinite;
+        }
+        .confirm-ring::before {
+            content: '';
+            position: absolute;
+            inset: -8px;
+            border-radius: 50%;
+            border: 1px solid rgba(212,175,55,0.1);
+            animation: ringPulse 3s ease-in-out infinite 0.5s;
+        }
+        @keyframes ringPulse {
+            0%,100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.7; }
+        }
+        .confirm-check {
+            font-size: 2.4rem;
+            color: #d4af37;
+            animation: checkPop 0.6s cubic-bezier(0.175,0.885,0.32,1.275) both;
+        }
+        @keyframes checkPop {
+            from { transform: scale(0); opacity: 0; }
+            to   { transform: scale(1); opacity: 1; }
+        }
+
+        .confirm-tag {
+            color: #d4af37;
+            font-size: 0.68rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 14px;
+            display: block;
+            animation: fadeUp 0.6s 0.2s ease both;
+        }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(16px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .confirm-title {
+            font-size: clamp(1.6rem, 4vw, 2.4rem);
+            font-weight: 300;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 16px;
+            animation: fadeUp 0.6s 0.3s ease both;
+            opacity: 0;
+            animation-fill-mode: forwards;
+        }
+        .confirm-desc {
+            font-size: 0.88rem;
+            color: #888;
+            max-width: 440px;
+            line-height: 1.8;
+            margin: 0 auto 40px;
+            animation: fadeUp 0.6s 0.4s ease both;
+            opacity: 0;
+            animation-fill-mode: forwards;
+        }
+
+        /* Order summary card */
+        .order-card {
+            background: #0d0d0d;
+            border: 1px solid #1e1e1e;
+            max-width: 520px;
+            width: 100%;
+            margin: 0 auto 40px;
+            text-align: left;
+            animation: fadeUp 0.6s 0.5s ease both;
+            opacity: 0;
+            animation-fill-mode: forwards;
+        }
+        .order-card-header {
+            padding: 18px 24px;
+            border-bottom: 1px solid #1e1e1e;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .order-card-header span {
+            font-size: 0.68rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #555;
+        }
+        .order-card-header strong {
+            font-size: 0.68rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #d4af37;
+        }
+        .order-items { padding: 18px 24px; }
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            font-size: 0.82rem;
+        }
+        .order-item-name { color: #ccc; }
+        .order-item-meta { font-size: 0.7rem; color: #555; margin-top: 2px; }
+        .order-item-price { color: #fff; font-weight: 500; flex-shrink: 0; margin-left: 16px; }
+        .order-totals {
+            padding: 16px 24px;
+            border-top: 1px solid #1e1e1e;
+        }
+        .order-total-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: #666;
+            margin-bottom: 8px;
+        }
+        .order-total-row.grand {
+            color: #fff;
+            font-weight: 600;
+            font-size: 1rem;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid #222;
+        }
+
+        .empty-order { text-align: center; padding: 24px; color: #555; font-size: 0.82rem; }
+        .empty-order a { color: #d4af37; }
+
+        /* Steps */
+        .next-steps {
+            max-width: 520px;
+            width: 100%;
+            margin: 0 auto;
+            animation: fadeUp 0.6s 0.6s ease both;
+            opacity: 0;
+            animation-fill-mode: forwards;
+        }
+        .next-steps h3 {
+            font-size: 0.68rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #555;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .steps-list { list-style: none; }
+        .steps-list li {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+            margin-bottom: 16px;
+            text-align: left;
+        }
+        .step-num {
+            width: 28px; height: 28px;
+            border-radius: 50%;
+            border: 1px solid #d4af37;
+            color: #d4af37;
+            font-size: 0.72rem;
+            font-weight: 700;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .step-text { font-size: 0.82rem; color: #888; line-height: 1.6; }
+        .step-text strong { color: #ccc; }
+
+        /* CTA buttons */
+        .confirm-btns {
+            display: flex;
+            gap: 14px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 40px;
+            animation: fadeUp 0.6s 0.7s ease both;
+            opacity: 0;
+            animation-fill-mode: forwards;
+        }
+        .btn-gold {
+            display: inline-block;
+            padding: 13px 28px;
+            background: #d4af37;
+            color: #000;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border: 1px solid #d4af37;
+            transition: all 0.25s ease;
+        }
+        .btn-gold:hover { background: transparent; color: #d4af37; }
+        .btn-ghost {
+            display: inline-block;
+            padding: 13px 28px;
+            background: transparent;
+            color: #666;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border: 1px solid #333;
+            transition: all 0.25s ease;
+        }
+        .btn-ghost:hover { border-color: #d4af37; color: #d4af37; }
+
+        /* Footer override for dark page */
+        #main-footer { border-top: 1px solid #111; }
+
+        @media (max-width: 768px) {
+            .confirm-wrap { padding: 80px 5% 50px; }
+            .confirm-btns { flex-direction: column; align-items: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <section class="confirm-wrap">
+        <div class="confirm-ring">
+            <span class="confirm-check">✓</span>
+        </div>
+        <span class="confirm-tag">Order Submitted</span>
+        <h1 class="confirm-title">Thank You!</h1>
+        <p class="confirm-desc">Your order has been sent to us via WhatsApp. We'll confirm the details and payment info shortly — usually within 1–2 hours.</p>
+
+        <div class="order-card">
+            <div class="order-card-header">
+                <span>Order Summary</span>
+                <strong id="order-date"></strong>
+            </div>
+            <div class="order-items" id="order-items-list">
+                <div class="empty-order">No order data found. <a href="shop-all.html">Shop now →</a></div>
+            </div>
+            <div class="order-totals" id="order-totals" style="display:none;">
+                <div class="order-total-row">
+                    <span>Subtotal</span>
+                    <span>RM<span id="conf-subtotal">0.00</span></span>
+                </div>
+                <div class="order-total-row">
+                    <span>Shipping</span>
+                    <span id="conf-shipping">—</span>
+                </div>
+                <div class="order-total-row grand">
+                    <span>Total</span>
+                    <span>RM<span id="conf-total">0.00</span></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="next-steps">
+            <h3>What Happens Next</h3>
+            <ul class="steps-list">
+                <li>
+                    <div class="step-num">1</div>
+                    <div class="step-text"><strong>Check WhatsApp</strong> — our team will message you to confirm your order and provide payment details.</div>
+                </li>
+                <li>
+                    <div class="step-num">2</div>
+                    <div class="step-text"><strong>Make Payment</strong> — via bank transfer or QR Pay once confirmed.</div>
+                </li>
+                <li>
+                    <div class="step-num">3</div>
+                    <div class="step-text"><strong>We Pack & Ship</strong> — your order is dispatched within 1–2 business days with a tracking number.</div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="confirm-btns">
+            <a href="shop-all.html" class="btn-gold">Continue Shopping</a>
+            <a href="https://wa.me/601118866239" target="_blank" class="btn-ghost">Open WhatsApp</a>
+        </div>
+    </section>
+
+    <script src="dvaaw-components.js"></script>
+    <script>
+        // Show order date
+        const now = new Date();
+        document.getElementById('order-date').textContent =
+            now.toLocaleDateString('en-MY', { day:'numeric', month:'short', year:'numeric' });
+
+        // Load last order from localStorage (saved by cart.html checkout)
+        const lastOrder = JSON.parse(localStorage.getItem('dvaaw_last_order'));
+        if (lastOrder && lastOrder.items && lastOrder.items.length) {
+            const listEl = document.getElementById('order-items-list');
+            listEl.innerHTML = lastOrder.items.map(i => `
+                <div class="order-item">
+                    <div>
+                        <div class="order-item-name">${i.title}</div>
+                        <div class="order-item-meta">${i.variant} × ${i.qty}</div>
+                    </div>
+                    <div class="order-item-price">RM${(i.price * i.qty).toFixed(2)}</div>
+                </div>`
+            ).join('');
+
+            document.getElementById('conf-subtotal').textContent = lastOrder.subtotal.toFixed(2);
+            document.getElementById('conf-shipping').textContent  = 'RM' + (lastOrder.shipping || 0).toFixed(2);
+            document.getElementById('conf-total').textContent     = lastOrder.total.toFixed(2);
+            document.getElementById('order-totals').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
