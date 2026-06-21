@@ -406,13 +406,18 @@
                 `;
             });
             window.updateTotals(cart);
+            window.syncBadge(cart);
         };
 
         window.updateQty = function(index, change) {
             let cart = JSON.parse(localStorage.getItem('dvaaw_cart'));
             cart[index].qty += change;
-            if (cart[index].qty < 1) cart[index].qty = 1;
+            if (cart[index].qty < 1) {
+                // Remove item when qty drops below 1
+                cart.splice(index, 1);
+            }
             localStorage.setItem('dvaaw_cart', JSON.stringify(cart));
+            window.syncBadge(cart);
             window.loadCart();
         };
 
@@ -420,7 +425,17 @@
             let cart = JSON.parse(localStorage.getItem('dvaaw_cart'));
             cart.splice(index, 1);
             localStorage.setItem('dvaaw_cart', JSON.stringify(cart));
+            window.syncBadge(cart);
             window.loadCart();
+        };
+
+        // Live badge sync — updates nav badge immediately without page reload
+        window.syncBadge = function(cart) {
+            const total = cart.reduce((s, i) => s + (i.qty || 0), 0);
+            document.querySelectorAll('.cart-badge').forEach(b => {
+                b.textContent = total;
+                b.classList.toggle('show', total > 0);
+            });
         };
 
         window.updateTotals = function(cart) {
@@ -476,15 +491,24 @@
                 console.error("Firebase save failed.", error);
             });
 
-            // 3. CLEAR CART
+            // 3. SAVE LAST ORDER for confirmation page
+            localStorage.setItem('dvaaw_last_order', JSON.stringify({
+                items:    cart,
+                subtotal: parseFloat(subtotal),
+                shipping: parseFloat(shipping),
+                total:    parseFloat(total),
+                date:     new Date().toISOString()
+            }));
+
+            // 4. CLEAR CART
             localStorage.removeItem('dvaaw_cart');
 
-            // 4. REDIRECT IMMEDIATELY — nothing runs before this now
+            // 5. OPEN WHATSAPP then redirect to confirmation page
             window.location.href = whatsappUrl;
 
-            // 5. Reload cart display after redirect (for back-button users)
             setTimeout(() => {
-                window.loadCart();
+                window.location.href = 'order-confirmation.html';
+            }, 1200);
             }, 500);
         };
 
