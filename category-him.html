@@ -267,13 +267,46 @@
             const sizeSelect = card.querySelector('.size-select');
             const selectedSize = sizeSelect.value;
             const price = parseFloat(sizeSelect.options[sizeSelect.selectedIndex].getAttribute('data-price'));
-            const newItem = { id: title + '-' + selectedSize, title: title, category: category, price: price, variant: selectedSize, image: imageSrc, qty: 1 };
+
+            if (!selectedSize || isNaN(price)) return;
+
+            const newItem = {
+                id: title + '-' + selectedSize,
+                title: title,
+                category: category,
+                price: price,
+                variant: selectedSize,
+                image: imageSrc,
+                qty: 1
+            };
+
             let cart = JSON.parse(localStorage.getItem('dvaaw_cart')) || [];
             let existingItem = cart.find(item => item.id === newItem.id);
             if (existingItem) { existingItem.qty += 1; } else { cart.push(newItem); }
             localStorage.setItem('dvaaw_cart', JSON.stringify(cart));
-            window.showToast('Item Added To Cart');
-            setTimeout(() => { window.location.href = 'cart.html'; }, 1000);
+
+            // Update nav badge immediately without waiting for dvaaw-components.js
+            const total = cart.reduce((s, i) => s + (i.qty || 0), 0);
+            document.querySelectorAll('.cart-badge').forEach(b => {
+                b.textContent = total;
+                b.classList.toggle('show', total > 0);
+            });
+
+            // Show toast instantly — stay on page so user can keep browsing
+            if (window.showToast) {
+                window.showToast('\u2713 ' + title + ' (' + selectedSize + ') added!');
+            }
+
+            // Button visual feedback
+            const orig = buttonElement.textContent;
+            buttonElement.textContent = 'Added!';
+            buttonElement.style.background = '#111';
+            buttonElement.style.color = '#d4af37';
+            setTimeout(() => {
+                buttonElement.textContent = orig;
+                buttonElement.style.background = '';
+                buttonElement.style.color = '';
+            }, 1800);
         }
     </script>
     <script>
