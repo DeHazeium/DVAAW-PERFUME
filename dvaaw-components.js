@@ -143,7 +143,24 @@
        5. CART BADGE
     ───────────────────────────────── */
     function updateCartBadge() {
-        const cart = JSON.parse(localStorage.getItem('dvaaw_cart')) || [];
+        let cart;
+        try {
+            cart = JSON.parse(localStorage.getItem('dvaaw_cart'));
+        } catch (e) {
+            cart = null;
+        }
+        // Self-heal: if cart is corrupted or not a valid array, reset it
+        if (!Array.isArray(cart)) {
+            cart = [];
+            localStorage.setItem('dvaaw_cart', '[]');
+        } else {
+            // Strip out any invalid/malformed items
+            const valid = cart.filter(i => i && i.title && typeof i.price === 'number' && i.qty > 0);
+            if (valid.length !== cart.length) {
+                cart = valid;
+                localStorage.setItem('dvaaw_cart', JSON.stringify(cart));
+            }
+        }
         const total = cart.reduce((s, i) => s + (i.qty || 0), 0);
         document.querySelectorAll('.cart-badge').forEach(b => {
             b.textContent = total;
@@ -151,6 +168,7 @@
         });
     }
     updateCartBadge();
+    window.updateCartBadge = updateCartBadge;
     window.addEventListener('storage', e => { if (e.key === 'dvaaw_cart') updateCartBadge(); });
 
     /* ─────────────────────────────────
