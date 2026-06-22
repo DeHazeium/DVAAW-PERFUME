@@ -362,15 +362,18 @@ img { max-width: 100%; display: block; }
     display: flex; align-items: center; gap: 12px;
     font-size: 0.8rem; font-weight: 500;
     letter-spacing: 2px; text-transform: uppercase;
-    box-shadow: 0 12px 36px rgba(0,0,0,0.25);
-    transition: bottom 0.45s cubic-bezier(0.175,0.885,0.32,1.275);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+    transition: bottom 0.35s cubic-bezier(0.175,0.885,0.32,1.275);
     z-index: 9999; white-space: nowrap;
     border-left: 3px solid #d4af37;
     font-family: 'Montserrat', sans-serif;
     font-style: normal;
+    max-width: 90vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .toast-notification.show { bottom: 32px; }
-.toast-icon { color: #fff; font-size: 1rem; }
+.toast-icon { color: #fff; font-size: 1rem; flex-shrink: 0; }
 
 /* ══════════════════════════════════════
    RESPONSIVE — TABLET (iPad ≤1024px)
