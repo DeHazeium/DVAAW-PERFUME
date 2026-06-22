@@ -39,8 +39,6 @@
             animation: ringPulse 3s ease-in-out infinite 0.5s;
         }
         @keyframes ringPulse {
-            0%,100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.05); opacity: 0.7; }
         }
         .confirm-check {
             font-size: 2.4rem;
@@ -48,8 +46,7 @@
             animation: checkPop 0.6s cubic-bezier(0.175,0.885,0.32,1.275) both;
         }
         @keyframes checkPop {
-            from { transform: scale(0); opacity: 0; }
-            to   { transform: scale(1); opacity: 1; }
+
         }
 
         .confirm-tag {
@@ -62,8 +59,7 @@
             animation: fadeUp 0.6s 0.2s ease both;
         }
         @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(16px); }
-            to   { opacity: 1; transform: translateY(0); }
+
         }
         .confirm-title {
             font-size: clamp(1.6rem, 4vw, 2.4rem);
