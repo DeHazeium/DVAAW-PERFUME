@@ -4,317 +4,229 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shopping Cart | D'Vaaw Fragrances</title>
-        <style>
-.page-header {
-            background-color: #f9f9f9;
-            padding: 50px 5%;
+    <link rel="stylesheet" href="dvaaw-components.css">
+    <style>
+        .page-header {
+            background: #050505;
+            color: #fff;
+            padding: 70px 5% 50px;
             text-align: center;
-            border-bottom: 1px solid #eee;
         }
-
         .page-header h1 {
-            font-size: 2.5rem;
+            font-size: 2.4rem;
             font-weight: 300;
             text-transform: uppercase;
-            letter-spacing: 4px;
+            letter-spacing: 5px;
             margin-bottom: 20px;
         }
-
         .checkout-steps {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 20px;
-            font-size: 0.8rem;
+            gap: 16px;
+            font-size: 0.72rem;
             text-transform: uppercase;
             letter-spacing: 2px;
-            color: #aaa;
+            color: #666;
         }
-
-        .step.active {
-            color: #111;
-            font-weight: 600;
-            border-bottom: 2px solid #d4af37;
-            padding-bottom: 5px;
-        }
+        .checkout-steps .step.active { color: #d4af37; font-weight: 600; }
+        .checkout-steps .divider { color: #444; }
 
         .cart-container {
             display: flex;
-            padding: 60px 10%;
+            padding: 60px 8%;
             gap: 50px;
             flex: 1;
+            align-items: flex-start;
         }
-
-        .cart-items-wrapper {
-            flex: 2;
-        }
-
+        .cart-items-wrapper { flex: 2; min-width: 0; }
         .cart-header {
             display: grid;
-            grid-template-columns: 3fr 1fr 1fr 0.5fr;
-            padding-bottom: 15px;
+            grid-template-columns: 3fr 1.2fr 1fr 0.4fr;
+            padding-bottom: 16px;
             border-bottom: 1px solid #111;
             text-transform: uppercase;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             letter-spacing: 2px;
             font-weight: 600;
-            color: #666;
+            color: #999;
         }
-
         .cart-item {
             display: grid;
-            grid-template-columns: 3fr 1fr 1fr 0.5fr;
+            grid-template-columns: 3fr 1.2fr 1fr 0.4fr;
             align-items: center;
-            padding: 30px 0;
+            padding: 28px 0;
             border-bottom: 1px solid #eee;
+            animation: itemFade 0.4s ease both;
         }
-
-        .item-details {
-            display: flex;
-            gap: 20px;
-            align-items: center;
+        @keyframes itemFade { from { opacity: 0; transform: translateX(-12px); } to { opacity: 1; transform: translateX(0); } }
+        .item-details { display: flex; gap: 18px; align-items: center; }
+        .item-img {
+            width: 90px; height: 110px;
+            background: #f7f7f7;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+            border: 1px solid #f0f0f0;
         }
-
-        .item-
-
-        .item-img 
-
-        .item-info h3 {
-            font-size: 1.1rem;
-            text-transform: uppercase;
-            margin-bottom: 5px;
-        }
-
-        .item-info p {
-            font-size: 0.8rem;
-            color: #666;
-            margin-bottom: 10px;
-        }
-
+        .item-img img { max-height: 95px; max-width: 80px; object-fit: contain; }
+        .item-info h3 { font-size: 1rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+        .item-info p { font-size: 0.75rem; color: #999; margin-bottom: 10px; }
         .item-variant {
             display: inline-block;
-            background-color: #eee;
-            padding: 4px 8px;
-            font-size: 0.7rem;
+            background: #f0f0f0;
+            padding: 4px 12px;
+            font-size: 0.68rem;
             text-transform: uppercase;
             letter-spacing: 1px;
+            color: #555;
+            font-weight: 500;
         }
-
         .qty-selector {
-            display: flex;
+            display: inline-flex;
             align-items: center;
             border: 1px solid #ddd;
             width: fit-content;
         }
-
         .qty-btn {
-            background: none;
-            border: none;
-            padding: 10px 15px;
+            background: none; border: none;
+            padding: 9px 14px;
             cursor: pointer;
             font-size: 1rem;
-            color: #666;
-            transition: background 0.3s ease;
-        }
-
-        .qty-btn:hover {
-            background-color: #f9f9f9;
-            color: #111;
-        }
-
-        .qty-input {
-            width: 40px;
-            text-align: center;
-            border: none;
+            color: #555;
+            transition: background 0.2s ease, color 0.2s ease;
             font-family: 'Montserrat', sans-serif;
-            font-size: 1rem;
+        }
+        .qty-btn:hover { background: #111; color: #d4af37; }
+        .qty-input {
+            width: 38px; text-align: center;
+            border: none; border-left: 1px solid #ddd; border-right: 1px solid #ddd;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
             pointer-events: none;
+            padding: 8px 0;
         }
-
-        .item-price {
-            font-weight: 600;
-            font-size: 1.1rem;
-        }
-
+        .item-price { font-weight: 600; font-size: 1rem; }
         .item-remove {
-            background: none;
-            border: none;
-            cursor: pointer;
-            color: #aaa;
-            font-size: 1.5rem;
-            transition: color 0.3s ease;
+            background: none; border: none;
+            cursor: pointer; color: #ccc;
+            font-size: 1.4rem;
+            transition: color 0.2s ease, transform 0.2s ease;
             text-align: right;
+            line-height: 1;
         }
-
-        .item-remove:hover {
-            color: #d4af37;
-        }
+        .item-remove:hover { color: #d4af37; transform: scale(1.15); }
 
         .continue-shopping {
-            display: inline-block;
-            margin-top: 30px;
-            font-size: 0.8rem;
+            display: inline-flex; align-items: center; gap: 8px;
+            margin-top: 32px;
+            font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 2px;
-            border-bottom: 1px solid #111;
-            padding-bottom: 2px;
-        }
-
-        .cart-summary {
-            flex: 1;
-            background-color: #fcfcfc;
-            border: 1px solid #eee;
-            padding: 40px;
-            height: fit-content;
-            position: sticky;
-            top: 20px;
-        }
-
-        .cart-summary h2 {
-            font-size: 1.2rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-bottom: 30px;
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 15px;
-        }
-
-        .summary-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-            font-size: 0.9rem;
-            color: #555;
-        }
-
-        .summary-total {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid #ddd;
-            font-size: 1.2rem;
-            font-weight: 600;
             color: #111;
-            text-transform: uppercase;
+            border-bottom: 1px solid #111;
+            padding-bottom: 3px;
+            transition: color 0.2s ease, border-color 0.2s ease;
         }
-
-        .checkout-btn {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-            width: 100%;
-            background-color: #25D366;
-            color: #fff;
-            text-align: center;
-            padding: 18px 0;
-            margin-top: 30px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            border: none;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-
-        .checkout-btn:hover {
-            background-color: #128C7E;
-        }
-
-        .checkout-btn svg {
-            width: 20px;
-            height: 20px;
-            fill: none;
-            stroke: currentColor;
-            stroke-width: 2;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-        }
+        .continue-shopping:hover { color: #d4af37; border-color: #d4af37; }
 
         .empty-cart-msg {
-            padding: 40px 0;
-            font-size: 1rem;
-            color: #888;
+            padding: 60px 20px;
             text-align: center;
+            color: #999;
+        }
+        .empty-cart-msg .empty-icon { font-size: 2.5rem; margin-bottom: 16px; opacity: 0.4; }
+        .empty-cart-msg p { font-size: 0.95rem; margin-bottom: 24px; }
+        .empty-cart-msg a {
+            display: inline-block;
+            padding: 12px 28px;
+            background: #111; color: #fff;
+            text-transform: uppercase;
+            font-size: 0.75rem; letter-spacing: 2px; font-weight: 500;
+            transition: all 0.25s ease;
+        }
+        .empty-cart-msg a:hover { background: #d4af37; color: #000; }
+
+        /* Summary */
+        .cart-summary {
+            flex: 1;
+            background: #fcfcfc;
+            border: 1px solid #eee;
+            padding: 36px;
+            position: sticky;
+            top: 20px;
+            min-width: 280px;
+        }
+        .cart-summary h2 {
+            font-size: 1.05rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 28px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #e5e5e5;
+            font-weight: 600;
+        }
+        .summary-row {
+            display: flex; justify-content: space-between;
+            margin-bottom: 16px;
+            font-size: 0.88rem; color: #666;
+        }
+        .summary-total {
+            display: flex; justify-content: space-between;
+            margin-top: 24px; padding-top: 20px;
+            border-top: 1px solid #e5e5e5;
+            font-size: 1.15rem; font-weight: 600;
+            color: #111; text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .shipping-hint {
+            font-size: 0.7rem; color: #aaa;
+            margin-top: 4px; line-height: 1.5;
+        }
+        .checkout-btn {
+            display: flex; justify-content: center; align-items: center; gap: 10px;
+            width: 100%;
+            background: #25D366; color: #fff;
+            text-align: center; padding: 16px 0;
+            margin-top: 28px;
+            text-transform: uppercase; letter-spacing: 2px;
+            font-size: 0.85rem; font-weight: 600;
+            font-family: 'Montserrat', sans-serif;
+            border: none; cursor: pointer;
+            transition: background 0.25s ease;
+        }
+        .checkout-btn:hover { background: #128C7E; }
+        .checkout-btn:disabled { background: #ccc; cursor: not-allowed; }
+        .checkout-btn svg { width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+        .secure-note {
+            text-align: center; font-size: 0.68rem; color: #aaa;
+            margin-top: 14px; letter-spacing: 0.5px;
         }
 
-        
-
-        
-
-        
-
-        
-
-        
-
-        
-
-        
-
-        /* === ANIMATIONS + RESPONSIVE === */
-        
-         to {opacity:1;transform:translateY(0);} }
-        
-        
-        
-        
-        
-        
-        
-         50%{opacity:0.75;text-shadow:0 0 18px #d4af37;} }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-         to{opacity:1;transform:translateY(0);} }
-        
-        
-        
-        
-        
-        
-        
-        .product-card 
-        .product-card:hover 
-        .category-card { transition:box-shadow 0.4s ease; }
-        .category-card:hover { box-shadow:0 20px 50px rgba(212,175,55,0.18); }
-        .btn,.btn-dark { position:relative; overflow:hidden; }
-         50%{transform:scale(1.025);} }
-        .hero-image 
-        
-        
-        
-
-        
-        
-        
-
-        /* Cookie consent banner */
+        @media (max-width: 768px) {
+            .cart-container { flex-direction: column; padding: 30px 5%; gap: 30px; }
+            .cart-header { display: none; }
+            .cart-item { grid-template-columns: 1fr; gap: 14px; padding: 20px 0; position: relative; }
+            .item-details { gap: 14px; }
+            .qty-selector { margin-left: 108px; margin-top: -8px; }
+            .item-price { margin-left: 108px; font-size: 1.05rem; }
+            .item-remove { position: absolute; top: 20px; right: 0; }
+            .cart-summary { position: static; width: 100%; }
+            .page-header h1 { font-size: 1.8rem; }
+        }
     </style>
-        <link rel="stylesheet" href="dvaaw-components.css">
 </head>
 <body>
-<!-- PAGE HEADER -->
+
     <header class="page-header">
         <h1>Your Cart</h1>
         <div class="checkout-steps">
-            <span class="step active">1. Cart</span> &mdash;
+            <span class="step active">1. Cart</span>
+            <span class="divider">—</span>
             <span class="step">2. Order via WhatsApp</span>
         </div>
     </header>
 
-    <!-- CART SYSTEM -->
     <section class="cart-container">
-
         <div class="cart-items-wrapper">
             <div class="cart-header">
                 <div>Product</div>
@@ -322,210 +234,207 @@
                 <div>Total</div>
                 <div></div>
             </div>
-
             <div id="cart-content"></div>
-
-            <a href="shop-all.html" class="continue-shopping">&larr; Continue Shopping</a>
+            <a href="shop-all.html" class="continue-shopping">← Continue Shopping</a>
         </div>
 
         <div class="cart-summary">
             <h2>Order Summary</h2>
-
             <div class="summary-row">
                 <span>Subtotal</span>
                 <span>RM<span id="summary-subtotal">0.00</span></span>
             </div>
-
             <div class="summary-row">
-                <span>Shipping</span>
+                <span>Shipping (Sarawak)</span>
                 <span>RM<span id="summary-shipping">0.00</span></span>
             </div>
-
             <div class="summary-total">
                 <span>Total</span>
                 <span>RM<span id="summary-total">0.00</span></span>
             </div>
-
-            <button class="checkout-btn" onclick="window.checkout()">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
-                </svg>
+            <p class="shipping-hint">Shipping shown is the Sarawak rate. Final shipping for other states is confirmed via WhatsApp.</p>
+            <button class="checkout-btn" id="checkout-btn" onclick="checkout()">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
                 Proceed to WhatsApp
             </button>
+            <p class="secure-note">🔒 No payment taken online — order confirmed via WhatsApp</p>
         </div>
     </section>
-<script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyCxOigVTO2ZCeKYoVRJvU085fEiEL9EKOI",
-            authDomain: "d-vaaw-perfume.firebaseapp.com",
-            databaseURL: "https://d-vaaw-perfume-default-rtdb.asia-southeast1.firebasedatabase.app",
-            projectId: "d-vaaw-perfume",
-            storageBucket: "d-vaaw-perfume.firebasestorage.app",
-            messagingSenderId: "176200300799",
-            appId: "1:176200300799:web:ee8893e3e3e6a4dd14b4ca"
-        };
+    <script src="dvaaw-components.js"></script>
 
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-
+    <!-- CART LOGIC — runs independently, never blocked by Firebase -->
+    <script>
         const WHATSAPP_NUMBER = "601118866239";
 
-        window.loadCart = function() {
-            const cartContent = document.getElementById('cart-content');
-            let cart = JSON.parse(localStorage.getItem('dvaaw_cart')) || [];
-
-            if (cart.length === 0) {
-                cartContent.innerHTML = '<div class="empty-cart-msg">Your cart is currently empty.</div>';
-                window.updateTotals(cart);
-                return;
+        function getCart() {
+            try {
+                const raw = localStorage.getItem('dvaaw_cart');
+                const cart = JSON.parse(raw);
+                // Validate it's a proper array of valid items
+                if (!Array.isArray(cart)) return [];
+                return cart.filter(i => i && i.title && typeof i.price === 'number' && i.qty > 0);
+            } catch (e) {
+                return [];
             }
+        }
 
-            cartContent.innerHTML = '';
-            cart.forEach((item, index) => {
-                cartContent.innerHTML += `
-                <div class="cart-item">
-                    <div class="item-details">
-                        <div class="item-img"><img src="${item.image}" alt="${item.title}"></div>
-                        <div class="item-info">
-                            <h3>${item.title}</h3>
-                            <p>Category: ${item.category}</p>
-                            <span class="item-variant">${item.variant}</span>
-                        </div>
-                    </div>
-                    <div class="qty-selector">
-                        <button class="qty-btn minus" onclick="window.updateQty(${index}, -1)">-</button>
-                        <input type="text" class="qty-input" value="${item.qty}" readonly>
-                        <button class="qty-btn plus" onclick="window.updateQty(${index}, 1)">+</button>
-                    </div>
-                    <div class="item-price">RM<span class="row-total">${(item.price * item.qty).toFixed(2)}</span></div>
-                    <button class="item-remove" onclick="window.removeItem(${index})" title="Remove Item">&times;</button>
-                </div>
-                `;
-            });
-            window.updateTotals(cart);
-            window.syncBadge(cart);
-        };
-
-        window.updateQty = function(index, change) {
-            let cart = JSON.parse(localStorage.getItem('dvaaw_cart'));
-            cart[index].qty += change;
-            if (cart[index].qty < 1) {
-                // Remove item when qty drops below 1
-                cart.splice(index, 1);
-            }
+        function saveCart(cart) {
             localStorage.setItem('dvaaw_cart', JSON.stringify(cart));
-            window.syncBadge(cart);
-            window.loadCart();
-        };
+        }
 
-        window.removeItem = function(index) {
-            let cart = JSON.parse(localStorage.getItem('dvaaw_cart'));
-            cart.splice(index, 1);
-            localStorage.setItem('dvaaw_cart', JSON.stringify(cart));
-            window.syncBadge(cart);
-            window.loadCart();
-        };
-
-        // Live badge sync — updates nav badge immediately without page reload
-        window.syncBadge = function(cart) {
+        function syncBadge(cart) {
             const total = cart.reduce((s, i) => s + (i.qty || 0), 0);
             document.querySelectorAll('.cart-badge').forEach(b => {
                 b.textContent = total;
                 b.classList.toggle('show', total > 0);
             });
-        };
+        }
 
-        window.updateTotals = function(cart) {
-            let subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
-            const shipping = subtotal > 0 ? 10.00 : 0.00;
-
-            document.getElementById('summary-subtotal').textContent = subtotal.toFixed(2);
-            document.getElementById('summary-shipping').textContent = shipping.toFixed(2);
-            document.getElementById('summary-total').textContent = (subtotal + shipping).toFixed(2);
-        };
-
-        window.checkout = function() {
-            let cart = JSON.parse(localStorage.getItem('dvaaw_cart')) || [];
+        function loadCart() {
+            const cartContent = document.getElementById('cart-content');
+            const cart = getCart();
 
             if (cart.length === 0) {
-                alert("Your cart is empty!");
+                cartContent.innerHTML = `
+                    <div class="empty-cart-msg">
+                        <div class="empty-icon">🛍️</div>
+                        <p>Your cart is currently empty.</p>
+                        <a href="shop-all.html">Browse Fragrances</a>
+                    </div>`;
+                updateTotals(cart);
+                syncBadge(cart);
+                document.getElementById('checkout-btn').disabled = true;
                 return;
             }
 
-            const btn = document.querySelector('.checkout-btn');
+            document.getElementById('checkout-btn').disabled = false;
+            cartContent.innerHTML = cart.map((item, index) => `
+                <div class="cart-item">
+                    <div class="item-details">
+                        <div class="item-img"><img src="${item.image}" alt="${item.title}" onerror="this.style.display='none'"></div>
+                        <div class="item-info">
+                            <h3>${item.title}</h3>
+                            <p>${item.category}</p>
+                            <span class="item-variant">${item.variant}</span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="qty-selector">
+                            <button class="qty-btn" onclick="updateQty(${index}, -1)">−</button>
+                            <input type="text" class="qty-input" value="${item.qty}" readonly>
+                            <button class="qty-btn" onclick="updateQty(${index}, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="item-price">RM${(item.price * item.qty).toFixed(2)}</div>
+                    <button class="item-remove" onclick="removeItem(${index})" title="Remove">×</button>
+                </div>
+            `).join('');
+
+            updateTotals(cart);
+            syncBadge(cart);
+        }
+
+        function updateQty(index, change) {
+            const cart = getCart();
+            if (!cart[index]) return;
+            cart[index].qty += change;
+            if (cart[index].qty < 1) cart.splice(index, 1);
+            saveCart(cart);
+            loadCart();
+        }
+
+        function removeItem(index) {
+            const cart = getCart();
+            cart.splice(index, 1);
+            saveCart(cart);
+            loadCart();
+        }
+
+        function updateTotals(cart) {
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            const shipping = subtotal > 0 ? 10.00 : 0.00;
+            document.getElementById('summary-subtotal').textContent = subtotal.toFixed(2);
+            document.getElementById('summary-shipping').textContent = shipping.toFixed(2);
+            document.getElementById('summary-total').textContent = (subtotal + shipping).toFixed(2);
+        }
+
+        function checkout() {
+            const cart = getCart();
+            if (cart.length === 0) { alert("Your cart is empty!"); return; }
+
+            const btn = document.getElementById('checkout-btn');
+            btn.disabled = true;
             btn.innerHTML = 'Opening WhatsApp...';
-            btn.style.pointerEvents = 'none';
 
-            let subtotal = document.getElementById('summary-subtotal').textContent;
-            let shipping = document.getElementById('summary-shipping').textContent;
-            let total = document.getElementById('summary-total').textContent;
+            const subtotal = document.getElementById('summary-subtotal').textContent;
+            const shipping = document.getElementById('summary-shipping').textContent;
+            const total    = document.getElementById('summary-total').textContent;
 
-            // 1. BUILD WHATSAPP MESSAGE
-            let message = `*NEW ORDER - D'VAAW PERFUME* 🌟\n\n`;
-            message += `*ORDER ITEMS*\n`;
+            let message = `*NEW ORDER - D'VAAW PERFUME* 🌟\n\n*ORDER ITEMS*\n`;
             cart.forEach(item => {
-                const itemTotal = (item.price * item.qty).toFixed(2);
-                message += `▪️ ${item.qty}x ${item.title} (${item.variant}) - RM${itemTotal}\n`;
+                message += `▪️ ${item.qty}x ${item.title} (${item.variant}) - RM${(item.price * item.qty).toFixed(2)}\n`;
             });
-            message += `\n*PAYMENT SUMMARY*\n`;
-            message += `Subtotal: RM${subtotal}\n`;
-            message += `Shipping: RM${shipping}\n`;
-            message += `*Total to Pay: RM${total}*\n\n`;
+            message += `\n*PAYMENT SUMMARY*\nSubtotal: RM${subtotal}\nShipping: RM${shipping}\n*Total to Pay: RM${total}*\n\n`;
             message += `Hi! I would like to place this order. Please let me know how to proceed with payment and provide my shipping details.`;
 
-            const encodedMessage = encodeURIComponent(message);
-            const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
+            const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 
-            // 2. SAVE TO FIREBASE IN BACKGROUND (no await — non-blocking)
-            addDoc(collection(db, "orders"), {
-                orderItems: cart,
-                subtotal: parseFloat(subtotal),
-                shippingFee: parseFloat(shipping),
-                totalAmount: parseFloat(total),
-                status: "Pending WhatsApp Confirmation",
-                timestamp: serverTimestamp()
-            }).catch((error) => {
-                console.error("Firebase save failed.", error);
-            });
-
-            // 3. SAVE LAST ORDER for confirmation page
+            // Save last order for confirmation page
             localStorage.setItem('dvaaw_last_order', JSON.stringify({
-                items:    cart,
+                items: cart,
                 subtotal: parseFloat(subtotal),
                 shipping: parseFloat(shipping),
-                total:    parseFloat(total),
-                date:     new Date().toISOString()
+                total: parseFloat(total),
+                date: new Date().toISOString()
             }));
 
-            // 4. CLEAR CART
+            // Try to log to Firebase (optional — never blocks checkout)
+            if (window.dvaawSaveOrder) {
+                window.dvaawSaveOrder(cart, subtotal, shipping, total);
+            }
+
             localStorage.removeItem('dvaaw_cart');
-
-            // 5. OPEN WHATSAPP then redirect to confirmation page
             window.location.href = whatsappUrl;
+            setTimeout(() => { window.location.href = 'order-confirmation.html'; }, 1200);
+        }
 
-            setTimeout(() => {
-                window.location.href = 'order-confirmation.html';
-            }, 1200);
-            }, 500);
-        };
-
-        document.addEventListener('DOMContentLoaded', window.loadCart);
+        // Render cart on load — works whether or not Firebase loads
+        loadCart();
     </script>
-    <script>
 
-        // Cart badge counter
-        
+    <!-- FIREBASE — loads separately, optional, never blocks cart rendering -->
+    <script type="module">
+        try {
+            const { initializeApp } = await import("https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js");
+            const { getFirestore, collection, addDoc, serverTimestamp } = await import("https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js");
 
-        
-        });
-        
-        
+            const firebaseConfig = {
+                apiKey: "AIzaSyCxOigVTO2ZCeKYoVRJvU085fEiEL9EKOI",
+                authDomain: "d-vaaw-perfume.firebaseapp.com",
+                databaseURL: "https://d-vaaw-perfume-default-rtdb.asia-southeast1.firebasedatabase.app",
+                projectId: "d-vaaw-perfume",
+                storageBucket: "d-vaaw-perfume.firebasestorage.app",
+                messagingSenderId: "176200300799",
+                appId: "1:176200300799:web:ee8893e3e3e6a4dd14b4ca"
+            };
+
+            const app = initializeApp(firebaseConfig);
+            const db = getFirestore(app);
+
+            window.dvaawSaveOrder = function(cart, subtotal, shipping, total) {
+                addDoc(collection(db, "orders"), {
+                    orderItems: cart,
+                    subtotal: parseFloat(subtotal),
+                    shippingFee: parseFloat(shipping),
+                    totalAmount: parseFloat(total),
+                    status: "Pending WhatsApp Confirmation",
+                    timestamp: serverTimestamp()
+                }).catch(err => console.error("Firebase save failed:", err));
+            };
+        } catch (e) {
+            console.warn("Firebase unavailable — orders still work via WhatsApp.", e);
+        }
     </script>
-    
-    </div>
-        <script src="dvaaw-components.js"></script>
 </body>
 </html>
