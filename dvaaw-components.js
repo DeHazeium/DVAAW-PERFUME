@@ -116,8 +116,31 @@
     </div>`;
     document.body.appendChild(cookie);
 
+
     /* ─────────────────────────────────
-       4. CART BADGE
+       4. INJECT TOAST NOTIFICATION
+    ───────────────────────────────── */
+    const toast = document.createElement('div');
+    toast.id = 'custom-toast';
+    toast.className = 'toast-notification';
+    toast.innerHTML = '<span class="toast-icon">✓</span><span>Item Added To Cart</span>';
+    document.body.appendChild(toast);
+
+    // Expose globally so triggerAddToCart on any page can use it
+    window.showToast = function(msg) {
+        const t = document.getElementById('custom-toast');
+        if (!t) return;
+        t.querySelector('span:last-child').textContent = msg || 'Item Added To Cart';
+        t.classList.remove('show');
+        // Force reflow so animation re-triggers even if toast is already visible
+        void t.offsetWidth;
+        t.classList.add('show');
+        clearTimeout(window._toastTimer);
+        window._toastTimer = setTimeout(() => t.classList.remove('show'), 2800);
+    };
+
+    /* ─────────────────────────────────
+       5. CART BADGE
     ───────────────────────────────── */
     function updateCartBadge() {
         const cart = JSON.parse(localStorage.getItem('dvaaw_cart')) || [];
@@ -131,7 +154,7 @@
     window.addEventListener('storage', e => { if (e.key === 'dvaaw_cart') updateCartBadge(); });
 
     /* ─────────────────────────────────
-       5. NAV SCROLL SHRINK
+       6. NAV SCROLL SHRINK
     ───────────────────────────────── */
     window.addEventListener('scroll', () => {
         const n = document.getElementById('main-nav');
@@ -139,7 +162,7 @@
     }, { passive: true });
 
     /* ─────────────────────────────────
-       6. MOBILE MENU
+       7. MOBILE MENU
     ───────────────────────────────── */
     const hb = document.getElementById('hamburger');
     const mm = document.getElementById('mobile-menu');
@@ -153,7 +176,7 @@
     if (mm) mm.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
 
     /* ─────────────────────────────────
-       7. COOKIE CONSENT
+       8. COOKIE CONSENT
     ───────────────────────────────── */
     function hideCookie() {
         const b = document.getElementById('cookie-banner');
@@ -173,7 +196,7 @@
     });
 
     /* ─────────────────────────────────
-       8. SCROLL REVEAL
+       9. SCROLL REVEAL
     ───────────────────────────────── */
     const obs = new IntersectionObserver((entries) => {
         entries.forEach((e, i) => {
