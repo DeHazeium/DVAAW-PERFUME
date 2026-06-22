@@ -3,94 +3,184 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Privacy Policy | D'Vaaw Fragrances</title>
+    <title>Page Not Found | D'Vaaw Fragrances</title>
         <style>
-        .page-header{background:#050505;color:#fff;padding:100px 10% 70px;text-align:center;}
-        .page-header .tag{color:#d4af37;font-size:0.75rem;letter-spacing:4px;text-transform:uppercase;margin-bottom:16px;display:block;}
-        .page-header h1{font-size:2.5rem;font-weight:300;text-transform:uppercase;letter-spacing:4px;}
+        /* 404 HERO */
+        .not-found-wrap {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 140px 6% 80px;
+            position: relative;
+            overflow: hidden;
+        }
 
-        .policy-body .updated{font-size:0.8rem;color:#999;margin-bottom:50px;padding-bottom:20px;border-bottom:1px solid #eee;}
-        .policy-section{margin-bottom:44px;}
-        .policy-section h2{font-size:1rem;text-transform:uppercase;letter-spacing:2px;font-weight:600;margin-bottom:14px;color:#111;}
-        .policy-section p,.policy-section li{font-size:0.9rem;color:#555;line-height:1.9;margin-bottom:10px;}
-        .policy-section ul{padding-left:20px;}
-        .policy-section ul li{margin-bottom:8px;}
+        /* animated gold particles background */
+        .particles { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+        .particle { position: absolute; width: 2px; height: 2px; background: #d4af37; border-radius: 50%; opacity: 0; animation: float var(--dur) var(--delay) ease-in-out infinite; }
+        @keyframes float {
+        }
 
-        /* Cookie banner */
+        .error-number {
+            font-family: 'Willsyard','Playfair Display',serif;
+            font-size: clamp(6rem, 20vw, 14rem);
+            font-weight: 400;
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(212,175,55,0.35);
+            line-height: 1;
+            margin-bottom: 0;
+            position: relative;
+            letter-spacing: 8px;
+            animation: fadeUp 0.8s ease both;
+        }
+        .error-number::after {
+            content: '404';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, #d4af37 0%, #f0d060 40%, #b8902a 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 0.15;
+            filter: blur(2px);
+        }
+
+        @keyframes fadeUp { from{opacity:0;transform:translateY(30px);} to{opacity:1;transform:translateY(0);} }
+
+        .gold-line { width: 60px; height: 1px; background: linear-gradient(90deg,transparent,#d4af37,transparent); margin: 28px auto; animation: fadeUp 0.8s 0.2s ease both; opacity: 0; animation-fill-mode: forwards; }
+
+        .error-tag { color: #d4af37; font-size: 0.7rem; letter-spacing: 5px; text-transform: uppercase; margin-bottom: 16px; animation: fadeUp 0.8s 0.15s ease both; opacity: 0; animation-fill-mode: forwards; }
+
+        .error-title {
+            font-size: clamp(1.4rem, 4vw, 2.2rem);
+            font-weight: 300;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: #fff;
+            margin-bottom: 16px;
+            animation: fadeUp 0.8s 0.25s ease both;
+            opacity: 0;
+            animation-fill-mode: forwards;
+        }
+
+        .error-desc {
+            font-size: 0.9rem;
+            color: #888;
+            max-width: 460px;
+            line-height: 1.8;
+            margin: 0 auto 44px;
+            animation: fadeUp 0.8s 0.35s ease both;
+            opacity: 0;
+            animation-fill-mode: forwards;
+        }
+
+        .error-btns {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeUp 0.8s 0.45s ease both;
+            opacity: 0;
+            animation-fill-mode: forwards;
+        }
+        .btn-gold-solid {
+            display: inline-block;
+            padding: 14px 32px;
+            background: #d4af37;
+            color: #000;
+            text-transform: uppercase;
+            font-size: 0.78rem;
+            letter-spacing: 2px;
+            font-weight: 600;
+            font-family: 'Montserrat',sans-serif;
+            border: 1px solid #d4af37;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .btn-gold-solid:hover { background: transparent; color: #d4af37; }
+        .btn-outline-white {
+            display: inline-block;
+            padding: 14px 32px;
+            background: transparent;
+            color: #fff;
+            text-transform: uppercase;
+            font-size: 0.78rem;
+            letter-spacing: 2px;
+            font-weight: 500;
+            font-family: 'Montserrat',sans-serif;
+            border: 1px solid rgba(255,255,255,0.3);
+            transition: all 0.3s ease;
+        }
+        .btn-outline-white:hover { border-color: #d4af37; color: #d4af37; }
+
+        .quick-links {
+            margin-top: 60px;
+            animation: fadeUp 0.8s 0.55s ease both;
+            opacity: 0;
+            animation-fill-mode: forwards;
+        }
+        .quick-links p { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 3px; color: #555; margin-bottom: 18px; }
+        .quick-links-row { display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; }
+        .quick-links-row a:hover { color: #d4af37; border-bottom-color: #d4af37; }
     </style>
         <link rel="stylesheet" href="dvaaw-components.css">
 </head>
 <body>
 
-    <header class="page-header">
-        <span class="tag">Your Privacy Matters</span>
-        <h1>Privacy Policy</h1>
-    </header>
+    <main class="not-found-wrap">
+        <!-- Floating particles -->
+        <div class="particles" id="particles"></div>
 
-    <div class="policy-body">
-        <p class="updated">Last updated: June 2026 &nbsp;|&nbsp; D'Vaaw Perfume, Kota Samarahan, Sarawak</p>
+        <p class="error-tag">Lost in the mist</p>
+        <div class="error-number">404</div>
+        <div class="gold-line"></div>
+        <h1 class="error-title">Page Not Found</h1>
+        <p class="error-desc">The page you're looking for has drifted away — like a fragrance on the wind. Let us guide you back to something beautiful.</p>
 
-        <div class="policy-section">
-            <h2>1. Who We Are</h2>
-            <p>D'Vaaw Perfume ("we", "us", "our") is a fragrance brand based in Kota Samarahan, Sarawak, Malaysia. We sell Halal luxury lifestyle fragrances through this website. By using this site, you agree to this Privacy Policy.</p>
+        <div class="error-btns">
+            <a href="index.html" class="btn-gold-solid">Back to Home</a>
+            <a href="shop-all.html" class="btn-outline-white">Explore Fragrances</a>
         </div>
 
-        <div class="policy-section">
-            <h2>2. Information We Collect</h2>
-            <p>We collect information in the following ways:</p>
-            <ul>
-                <li><strong>Cart data:</strong> Items you add to your cart are stored in your browser's localStorage. This data never leaves your device unless you proceed to checkout.</li>
-                <li><strong>Order data:</strong> When you place an order via WhatsApp, your name, phone number, shipping address, and order details are shared with us directly through WhatsApp.</li>
-                <li><strong>Firebase:</strong> Order summaries (items, totals) are logged to our Firebase Firestore database for record-keeping. No payment card data is stored.</li>
-                <li><strong>Contact form:</strong> If you submit our contact form, the message is sent to us via WhatsApp and is not stored on any server.</li>
-            </ul>
+        <div class="quick-links">
+            <p>Or find what you need:</p>
+            <div class="quick-links-row">
+                <a href="category-her.html">For Her</a>
+                <a href="category-him.html">For Him</a>
+                <a href="category-unisex.html">Unisex</a>
+                <a href="category-borneo.html">Borneo Edition</a>
+                <a href="cart.html">My Cart</a>
+                <a href="contact.html">Contact Us</a>
+            </div>
         </div>
+    </main>
 
-        <div class="policy-section">
-            <h2>3. How We Use Your Information</h2>
-            <ul>
-                <li>To process and fulfil your orders</li>
-                <li>To respond to your enquiries</li>
-                <li>To improve our website and product offerings</li>
-                <li>We do not sell, rent, or trade your personal data to third parties.</li>
-            </ul>
-        </div>
+    <script>
+        // Cart badge
 
-        <div class="policy-section">
-            <h2>4. Cookies & Local Storage</h2>
-            <p>This website uses browser <strong>localStorage</strong> (not traditional cookies) to save your shopping cart between visits. This data is stored entirely on your device. You can clear it at any time through your browser settings.</p>
-            <p>We do not use advertising cookies, tracking pixels, or third-party analytics at this time.</p>
-        </div>
+        // Mobile menu
 
-        <div class="policy-section">
-            <h2>5. WhatsApp & Third-Party Services</h2>
-            <p>Our ordering and contact system routes through <strong>WhatsApp</strong> (Meta). When you tap "Proceed to WhatsApp", your order details are pre-filled into a WhatsApp message sent to our business number. WhatsApp's own Privacy Policy applies to messages sent via their platform.</p>
-            <p>We use <strong>Firebase</strong> (Google) to log order records. Google's Privacy Policy governs data stored in Firebase.</p>
-        </div>
-
-        <div class="policy-section">
-            <h2>6. Data Retention</h2>
-            <p>Cart data in localStorage is cleared automatically when you complete a checkout. Order records in Firebase are retained for up to 2 years for business record purposes. WhatsApp message history is subject to your own WhatsApp retention settings.</p>
-        </div>
-
-        <div class="policy-section">
-            <h2>7. Your Rights</h2>
-            <p>You have the right to request access to, correction of, or deletion of any personal data we hold about you. To exercise these rights, contact us at <a href="https://wa.me/601118866239" target="_blank">+601118866239</a> or <a href="mailto:hello@dvaaw.com">hello@dvaaw.com</a>.</p>
-        </div>
-
-        <div class="policy-section">
-            <h2>8. Contact Us</h2>
-            <p>For any privacy-related questions, reach us at:</p>
-            <ul>
-                <li>WhatsApp: <a href="https://wa.me/601118866239" target="_blank">+601118866239</a></li>
-                <li>Email: <a href="mailto:hello@dvaaw.com">hello@dvaaw.com</a></li>
-                <li>Location: Kota Samarahan, Sarawak, Malaysia</li>
-            </ul>
-        </div>
-    </div>
-
-    </div>
-
+        // Generate floating gold particles
+        const container = document.getElementById('particles');
+        for (let i = 0; i < 28; i++) {
+            const p = document.createElement('div');
+            p.className = 'particle';
+            const size = Math.random() * 3 + 1;
+            p.style.cssText = `
+                left: ${Math.random() * 100}%;
+                width: ${size}px;
+                height: ${size}px;
+                --dur: ${6 + Math.random() * 10}s;
+                --delay: ${Math.random() * 8}s;
+                --drift: ${(Math.random() - 0.5) * 120}px;
+                opacity: 0;
+            `;
+            container.appendChild(p);
+        }
+    </script>
         <script src="dvaaw-components.js"></script>
 </body>
 </html>
