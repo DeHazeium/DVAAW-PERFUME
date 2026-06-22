@@ -4,76 +4,243 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Our Story | D'Vaaw Fragrances</title>
-        <style>
-50%{opacity:0.88;text-shadow:0 0 22px rgba(212,175,55,0.6);} }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        to{opacity:1;transform:translateY(0);}}
-        to{opacity:1;transform:translateY(0);}}
-        
-        
-        
-        
-        
-        
-        
-        
-        
+    <link rel="stylesheet" href="dvaaw-components.css">
+    <style>
+        /* HERO */
+        .about-hero {
+            background: #050505;
+            color: #fff;
+            text-align: center;
+            padding: 120px 8% 90px;
+            position: relative;
+            overflow: hidden;
+        }
+        .about-hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 50%;
+            transform: translateX(-50%);
+            width: 1px; height: 50px;
+            background: linear-gradient(to bottom, transparent, #d4af37);
+        }
+        .about-hero .tag {
+            color: #d4af37;
+            font-size: 0.72rem;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+            display: block;
+        }
+        .about-hero h1 {
+            font-size: clamp(2.2rem, 5vw, 3.6rem);
+            font-weight: 300;
+            line-height: 1.2;
+            margin-bottom: 24px;
+            letter-spacing: 1px;
+        }
+        .about-hero p {
+            font-size: 1rem;
+            color: #999;
+            max-width: 580px;
+            margin: 0 auto;
+            line-height: 1.9;
+        }
 
-        /* PAGE SPECIFIC */
-        .about-hero { background-color: #050505; color: #fff; text-align: center; padding: 120px 10% 80px; }
-        .about-hero .tag { color: #d4af37; font-size: 0.8rem; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 20px; display: block; }
-        .about-hero h1 { font-family: 'Willsyard','Playfair Display',serif; font-size: 4rem; font-weight: 400; line-height: 1.2; margin-bottom: 20px; }
-        .about-hero p { font-size: 1rem; color: #aaa; max-width: 600px; margin: 0 auto; line-height: 1.8; }
-
-        .about-section { padding: 80px 10%; display: flex; gap: 80px; align-items: center; }
+        /* ALTERNATING SECTIONS */
+        .about-section {
+            padding: 90px 8%;
+            display: flex;
+            gap: 70px;
+            align-items: center;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
         .about-section.reverse { flex-direction: row-reverse; }
-        .about-section.dark { background: #050505; color: #fff; }
+        .about-section.dark { background: #050505; color: #fff; max-width: none; margin: 0; padding: 90px 8%; }
+        .about-section.dark .inner { max-width: 1300px; margin: 0 auto; display: flex; gap: 70px; align-items: center; width: 100%; }
+        .about-section.dark.reverse .inner { flex-direction: row-reverse; }
         .about-text { flex: 1; }
-        .about-text .tag { color: #d4af37; font-size: 0.75rem; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 16px; display: block; }
-        .about-text h2 { font-size: 2rem; font-weight: 300; line-height: 1.3; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 2px; }
-        .about-section.dark .about-text h2 { color: #fff; }
-        .about-text p { font-size: 0.95rem; line-height: 1.9; color: #555; margin-bottom: 16px; }
-        .about-section.dark .about-text p { color: #aaa; }
-        .about-
-        .about-img 
-        .about-section.dark .about-img 
+        .about-text .tag {
+            color: #d4af37;
+            font-size: 0.7rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 18px;
+            display: block;
+        }
+        .about-text h2 {
+            font-size: clamp(1.6rem, 3vw, 2.1rem);
+            font-weight: 300;
+            line-height: 1.3;
+            margin-bottom: 24px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .about-text p {
+            font-size: 0.95rem;
+            line-height: 2;
+            color: #666;
+            margin-bottom: 18px;
+        }
+        .about-section.dark .about-text p { color: #999; }
+        .about-img { flex: 1; }
+        .about-img img {
+            width: 100%;
+            height: 460px;
+            object-fit: cover;
+            filter: grayscale(12%);
+            border-radius: 2px;
+        }
+        .about-section.dark .about-img img { filter: grayscale(25%) contrast(1.1); }
+        .about-img-placeholder {
+            width: 100%; height: 460px;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+            display: flex; align-items: center; justify-content: center;
+            color: #d4af37; font-size: 0.8rem; letter-spacing: 2px;
+            text-transform: uppercase;
+        }
 
-        .values-section { padding: 80px 10%; background: #f9f9f9; }
-        .values-section h2 { text-align: center; font-size: 1.5rem; font-weight: 300; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 60px; }
-        .values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
-        .value-card { text-align: center; padding: 40px 20px; background: #fff; border: 1px solid #eee; }
-        .value-icon { font-size: 2rem; margin-bottom: 20px; }
-        .value-card h3 { font-size: 1rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; font-weight: 600; }
-        .value-card p { font-size: 0.85rem; color: #666; line-height: 1.7; }
+        /* VALUES */
+        .values-section { padding: 90px 8%; background: #f9f9f9; }
+        .values-section h2 {
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: 300;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 16px;
+        }
+        .values-section .subtitle {
+            text-align: center;
+            font-size: 0.85rem;
+            color: #999;
+            margin-bottom: 56px;
+        }
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .value-card {
+            text-align: center;
+            padding: 48px 28px;
+            background: #fff;
+            border: 1px solid #eee;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+        .value-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 40px rgba(0,0,0,0.06);
+            border-color: #d4af37;
+        }
+        .value-icon { font-size: 2.2rem; margin-bottom: 24px; }
+        .value-card h3 {
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 14px;
+            font-weight: 600;
+        }
+        .value-card p { font-size: 0.85rem; color: #777; line-height: 1.8; }
 
-        .founders-section { padding: 80px 10%; background: #050505; color: #fff; text-align: center; }
-        .founders-section .tag { color: #d4af37; font-size: 0.75rem; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 16px; display: block; }
-        .founders-section h2 { font-size: 2rem; font-weight: 300; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; }
-        .founders-section p { font-size: 0.95rem; color: #aaa; max-width: 700px; margin: 0 auto 40px; line-height: 1.9; }
-        .founders-quote { border-left: 2px solid #d4af37; padding: 20px 30px; max-width: 650px; margin: 0 auto; text-align: left; }
-        .founders-quote p { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.2rem; color: #fff; line-height: 1.7; margin: 0; }
-        .founders-quote cite { display: block; margin-top: 16px; font-size: 0.75rem; color: #d4af37; text-transform: uppercase; letter-spacing: 3px; font-style: normal; }
+        /* FOUNDERS QUOTE */
+        .founders-section {
+            padding: 100px 8%;
+            background: #050505;
+            color: #fff;
+            text-align: center;
+        }
+        .founders-section .tag {
+            color: #d4af37;
+            font-size: 0.7rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 18px;
+            display: block;
+        }
+        .founders-section h2 {
+            font-size: clamp(1.6rem, 3vw, 2.1rem);
+            font-weight: 300;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 50px;
+        }
+        .founders-quote {
+            max-width: 680px;
+            margin: 0 auto;
+            position: relative;
+            padding: 0 20px;
+        }
+        .founders-quote .mark {
+            font-size: 4rem;
+            color: #d4af37;
+            opacity: 0.3;
+            line-height: 1;
+            font-family: Georgia, serif;
+        }
+        .founders-quote p {
+            font-size: 1.25rem;
+            font-style: italic;
+            color: #eee;
+            line-height: 1.8;
+            margin: 10px 0 28px;
+            font-weight: 300;
+        }
+        .founders-quote cite {
+            font-size: 0.72rem;
+            color: #d4af37;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-style: normal;
+        }
 
-        .cta-section { padding: 80px 10%; text-align: center; background: #fff; }
-        .cta-section h2 { font-size: 2rem; font-weight: 300; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 20px; }
-        .cta-section p { font-size: 0.9rem; color: #666; margin-bottom: 40px; max-width: 500px; margin-left: auto; margin-right: auto; line-height: 1.8; }
-        .cta-btns { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
-        .btn-dark-solid { display: inline-block; padding: 14px 32px; background: #111; color: #fff; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 2px; font-weight: 500; font-family: 'Montserrat',sans-serif; border: 1px solid #111; transition: all 0.3s ease; }
-        .btn-dark-solid:hover { background: transparent; color: #111; }
-        .btn-outline { display: inline-block; padding: 14px 32px; background: transparent; color: #111; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 2px; font-weight: 500; font-family: 'Montserrat',sans-serif; border: 1px solid #111; transition: all 0.3s ease; }
-        .btn-outline:hover { background: #111; color: #fff; }
+        /* CTA */
+        .cta-section { padding: 90px 8%; text-align: center; background: #fff; }
+        .cta-section h2 {
+            font-size: clamp(1.6rem, 3vw, 2.2rem);
+            font-weight: 300;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+        }
+        .cta-section p {
+            font-size: 0.92rem;
+            color: #777;
+            margin: 0 auto 40px;
+            max-width: 480px;
+            line-height: 1.9;
+        }
+        .cta-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+        .cta-btns a {
+            display: inline-block;
+            padding: 14px 34px;
+            text-transform: uppercase;
+            font-size: 0.78rem;
+            letter-spacing: 2px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        .btn-fill { background: #111; color: #fff; border: 1px solid #111; }
+        .btn-fill:hover { background: #d4af37; color: #000; border-color: #d4af37; }
+        .btn-line { background: transparent; color: #111; border: 1px solid #111; }
+        .btn-line:hover { background: #111; color: #fff; }
+
+        @media (max-width: 768px) {
+            .about-hero { padding: 90px 6% 70px; }
+            .about-section, .about-section.dark .inner { flex-direction: column !important; gap: 36px; padding: 0; }
+            .about-section { padding: 56px 6%; }
+            .about-section.dark { padding: 56px 6%; }
+            .about-img img, .about-img-placeholder { height: 280px; }
+            .values-section { padding: 56px 6%; }
+            .values-grid { grid-template-columns: 1fr; gap: 18px; }
+            .value-card { padding: 36px 24px; }
+            .founders-section { padding: 64px 6%; }
+            .founders-quote p { font-size: 1.05rem; }
+            .cta-section { padding: 56px 6%; }
+        }
     </style>
-        <link rel="stylesheet" href="dvaaw-components.css">
 </head>
 <body>
 
@@ -91,24 +258,27 @@
             <p>When we chose Gula Apong as the soul of our brand, we weren't just picking an ingredient. We were making a declaration: that luxury doesn't have to come from somewhere else. It can come from here. From us. From Borneo.</p>
         </div>
         <div class="about-img">
-            <img src="image/gula-apong.png" alt="Gula Apong — Nypa Palm Sugar, the soul of D'Vaaw">
+            <img src="image/gula-apong.png" alt="Gula Apong" onerror="this.outerHTML='<div class=\'about-img-placeholder\'>Gula Apong</div>'">
         </div>
     </section>
 
-    <section class="about-section reverse dark reveal">
-        <div class="about-text">
-            <span class="tag">Our Mission</span>
-            <h2>Uplift. Empower. Inspire.</h2>
-            <p>D'Vaaw was founded with a clear purpose: to create meaningful livelihoods for single mothers and students in Sarawak. Every bottle sold contributes to this mission.</p>
-            <p>We believe that when a woman puts on D'Vaaw, she's not just wearing a fragrance. She's wearing proof that community, resilience, and beauty can all exist in the same breath.</p>
-        </div>
-        <div class="about-img">
-            <img src="image/community.png" alt="D'Vaaw community — empowering single mothers and students in Sarawak">
+    <section class="about-section dark reverse reveal">
+        <div class="inner">
+            <div class="about-text">
+                <span class="tag">Our Mission</span>
+                <h2>Uplift. Empower. Inspire.</h2>
+                <p>D'Vaaw was founded with a clear purpose: to create meaningful livelihoods for single mothers and students in Sarawak. Every bottle sold contributes to this mission.</p>
+                <p>When a woman wears D'Vaaw, she's not just wearing a fragrance. She's wearing proof that community, resilience, and beauty can all exist in the same breath.</p>
+            </div>
+            <div class="about-img">
+                <img src="image/community.png" alt="Community" onerror="this.outerHTML='<div class=\'about-img-placeholder\'>Our Community</div>'">
+            </div>
         </div>
     </section>
 
     <section class="values-section">
         <h2 class="reveal">What We Stand For</h2>
+        <p class="subtitle reveal">The principles woven into every bottle</p>
         <div class="values-grid">
             <div class="value-card reveal">
                 <div class="value-icon">🌿</div>
@@ -131,9 +301,9 @@
     <section class="founders-section reveal">
         <span class="tag">A Word From Us</span>
         <h2>We Started Small. We Dream Big.</h2>
-        <p>D'Vaaw began as an idea in Kota Samarahan — that Sarawak deserved its own luxury fragrance brand. One that told our story, carried our scents, and supported our people. Every bottle is a step toward that dream.</p>
         <div class="founders-quote">
-            <p>"We didn't just want to sell perfume. We wanted to create something that Sarawakians could be proud of — a scent that carries the spirit of our land wherever life takes you."</p>
+            <div class="mark">"</div>
+            <p>We didn't just want to sell perfume. We wanted to create something Sarawakians could be proud of — a scent that carries the spirit of our land wherever life takes you.</p>
             <cite>— The D'Vaaw Team, Sarawak</cite>
         </div>
     </section>
@@ -142,19 +312,11 @@
         <h2>Wear The Story</h2>
         <p>Every fragrance in our collection is an invitation to carry a piece of Borneo with you — wherever the day takes you.</p>
         <div class="cta-btns">
-            <a href="shop-all.html" class="btn-dark-solid">Explore All Fragrances</a>
-            <a href="category-borneo.html" class="btn-outline">Borneo Edition</a>
+            <a href="shop-all.html" class="btn-fill">Explore All Fragrances</a>
+            <a href="category-borneo.html" class="btn-line">Borneo Edition</a>
         </div>
     </section>
 
-    
-
-    <script>
-        
-         });
-        
-        
-    </script>
-        <script src="dvaaw-components.js"></script>
+    <script src="dvaaw-components.js"></script>
 </body>
 </html>
