@@ -24,8 +24,8 @@
 
         .categories { display: flex; padding: 5%; gap: 20px; }
         .category-card { flex: 1; position: relative; overflow: hidden; display: block; }
-        .category-card 
-        .category-card:hover 
+        .category-card img { width: 100%; height: 450px; object-fit: cover; filter: brightness(0.6); transition: transform 0.5s ease, filter 0.5s ease; }
+        .category-card:hover img { transform: scale(1.05); filter: brightness(0.8); }
         .category-card h3 { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%; text-align: center; color: #fff; text-transform: uppercase; letter-spacing: 4px; font-weight: 500; font-size: 1.5rem; z-index: 2; }
 
         .feature-banner { position: relative; width: 100%; height: 500px; background-color: #111; display: flex; align-items: center; justify-content: center; text-align: center; padding: 0 10%; }
